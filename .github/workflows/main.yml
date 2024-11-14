@@ -95,7 +95,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'Data-api-Opdracht'
+          app-name: 'Data-api-clientside'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.NEXTJS_PUBLISHPROFILE2 }}
+          publish-profile: ${{ secrets.NEXTJS_PUBLISHPROFILE }}
           package: .
