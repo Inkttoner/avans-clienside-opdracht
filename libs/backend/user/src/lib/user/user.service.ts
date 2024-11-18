@@ -17,7 +17,7 @@ export class UserService {
     async findAll(): Promise<IUserInfo[]> {
         this.logger.log(`Finding all items`);
         const items = await this.userModel.find();
-        return items;
+        return items.map(item => this.mapToUserInfo(item));
     }
 
     async findOne(_id: string): Promise<IUser | null> {
@@ -48,4 +48,17 @@ export class UserService {
         this.logger.log(`Update user ${user.name}`);
         return this.userModel.findByIdAndUpdate({ _id }, user);
     }
+    private mapToUserInfo(item: UserDocument): IUserInfo {
+        return {
+            _id: item._id,
+            name: item.name,
+            password: item.password,
+            emailAddress: item.emailAddress,
+            profileImgUrl: item.profileImgUrl,
+            role: item.role,
+            gender: item.gender,
+            isActive: item.isActive,
+            position: item.position
+        };
+}
 }

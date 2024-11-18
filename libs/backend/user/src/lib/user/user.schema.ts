@@ -71,6 +71,13 @@ export class User implements IUser {
     isActive = true;
 
     @Prop({
+        required: false,
+        type: String,
+        default: ''
+    })
+    position = '';
+
+    @Prop({
         default: [],
         type: [MongooseSchema.Types.ObjectId],
         ref: 'Meal'

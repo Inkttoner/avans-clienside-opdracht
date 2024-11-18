@@ -58,6 +58,10 @@ export class UpsertUserDto implements IUpsertUser {
     @IsString()
     @IsNotEmpty()
     gender: UserGender = UserGender.Unknown;
+
+    @IsString()
+    @IsNotEmpty()
+    position = '';
 }
 
 export class UpdateUserDto implements IUpdateUser {
