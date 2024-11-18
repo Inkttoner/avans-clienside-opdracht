@@ -25,6 +25,6 @@ import {FeaturesModule} from '@avans-nx-workshop/features'
         FeaturesModule
     ],
     providers: [],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent]   
 })
 export class AppModule {}

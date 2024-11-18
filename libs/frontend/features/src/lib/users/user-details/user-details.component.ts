@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { IUserInfo, UserService } from '@avans-nx-workshop/shared/api';
+import { IUserInfo } from '@avans-nx-workshop/shared/api';
 import { ActivatedRoute } from '@angular/router';
+import { UserService } from'../user.sevice';
 
 
 @Component({

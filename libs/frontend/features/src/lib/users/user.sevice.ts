@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of , delay} from 'rxjs';
 import { IUserInfo, UserGender, UserRole } from '@avans-nx-workshop/shared/api';
 
 
@@ -57,6 +57,12 @@ export class UserService {
     // maakt van de gegeven data.
     return of(this.users);
   }
+
+  getUsersAsync(): Observable<IUserInfo[]> {
+    console.log('getUsersAsync aangeroepen');
+    return of(this.users).pipe(delay(2000));
+  }
+
 
   getUserById(_id: string): IUserInfo {
     console.log('getUserById aangeroepen');
