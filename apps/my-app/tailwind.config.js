@@ -8,6 +8,7 @@ module.exports = {
         ...createGlobPatternsForDependencies(__dirname),
         './node_modules/flowbite/**/*.js'
     ],
-    theme: {},
+    theme: {
+    },
     plugins: [require('flowbite/plugin')]
 };
