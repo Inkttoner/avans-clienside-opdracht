@@ -9,7 +9,7 @@ import { UserService } from '../user.sevice';
     styles: []
 })
 export class UserDetailsComponent implements OnInit, OnDestroy {
-    user: IUserInfo | null = null;
+    user?: IUserInfo 
 
     constructor(
         private userService: UserService,
