@@ -15,51 +15,65 @@
         </div>
     </div>
 } @else{
-    <div class="p-4">
-        <h3 class="text-base/7 font-semibold text-gray-900">Speler informatie</h3>
-        <p class="mt-1 max-w-2xl text-sm/6 text-gray-500">Informatie over de speler.</p>
-      </div>
-      <div class="mt-6 border-t border-gray-100 p-4">
-        <dl class="divide-y divide-gray-100">
-          <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-            <dt class="text-sm/6 font-medium text-gray-900">Full name</dt>
-            <dd class="mt-1 flex text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">
-              <span class="grow">{{user.name}}</span>
-              <span class="ml-4 shrink-0">
-                <button type="button" class="rounded-md bg-white font-medium text-indigo-600 hover:text-indigo-500">Update</button>
-              </span>
-            </dd>
-          </div>
-          <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-            <dt class="text-sm/6 font-medium text-gray-900">Rol</dt>
-            <dd class="mt-1 flex text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">
-              <span class="grow"> {{user.role}} </span>
-              <span class="ml-4 shrink-0">
-                <button type="button" class="rounded-md bg-white font-medium text-indigo-600 hover:text-indigo-500">Update</button>
-              </span>
-            </dd>
-          </div>
-          <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-            <dt class="text-sm/6 font-medium text-gray-900">Email address</dt>
-            <dd class="mt-1 flex text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">
-              <span class="grow">{{user.emailAddress}}</span>
-              <span class="ml-4 shrink-0">
-                <button type="button" class="rounded-md bg-white font-medium text-indigo-600 hover:text-indigo-500">Update</button>
-              </span>
-            </dd>
-          </div>
-          <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-            <dt class="text-sm/6 font-medium text-gray-900">Positie</dt>
-            <dd class="mt-1 flex text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">
-              <span class="grow"> {{user.position}} </span>
-              <span class="ml-4 shrink-0">
-                <button type="button" class="rounded-md bg-white font-medium text-indigo-600 hover:text-indigo-500">Update</button>
-              </span>
-            </dd>
-          </div>
-        </dl>
-      </div>
-          
+    <div class="bg-gray-100">
+        <div class="container mx-auto py-8">
+            <div class="grid grid-cols-4 sm:grid-cols-12 gap-6 px-4">
+                <div class="col-span-4 sm:col-span-3">
+                    <div class="bg-white shadow rounded-lg p-6">
+                        <div class="flex flex-col items-center">
+                            <img src="https://randomuser.me/api/portraits/men/94.jpg" class="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0" />
+                            <h1 class="text-xl font-bold"> {{user.name}} </h1>
+                            <p class="text-gray-700"> {{user.role}} </p>
+                            <div class="mt-6 flex flex-wrap gap-4 justify-center">
+                                <a href="#" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">Contact</a>
+                                <a href="#" class="bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded">Resume</a>
+                            </div>
+                        </div>
+                        <hr class="my-6 border-t border-gray-300">
+                        <div class="flex flex-col">
+                            <span class="text-gray-700 uppercase font-bold tracking-wider mb-2">Positie</span>
+                            <ul>
+                                <li class="mb-2"> {{user.position}} </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-span-4 sm:col-span-9">
+                    <div class="bg-white shadow rounded-lg p-6">
+                        <h2 class="text-xl font-bold mb-4">Mail addres</h2>
+                        <p class="text-gray-700"> {{user.emailAddress}} </p>
+    
+    
+                        <h2 class="text-xl font-bold mt-6 mb-4">Statistieken</h2>
+                        <div class="mb-6">
+                            <div class="flex justify-between flex-wrap gap-2 w-full">
+                                <span class="text-gray-700 font-bold"> Goals</span>
+                                <p>
+                                    <span class="text-gray-700 mr-2">Hier komt het aantal goals</span>
+                           </p>
+                                </div>
+                        </div>
+                        <div class="mb-6">
+                            <div class="flex justify-between flex-wrap gap-2 w-full">
+                                <span class="text-gray-700 font-bold">Assists</span>
+                                <p>
+                                    <span class="text-gray-700 mr-2">Hier komt het aantal assists</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                            <div class="flex justify-between flex-wrap gap-2 w-full">
+                                <span class="text-gray-700 font-bold">Laatste quotes</span>
+                                <p>
+                                    <span class="text-gray-700 mr-2">Hier komen de quotes van de speler</span>
+                                </p>
+                            </div>
+                            <p class="mt-2">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 }
-
-
