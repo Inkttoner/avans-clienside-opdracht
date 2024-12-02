@@ -20,7 +20,7 @@ export class UserService {
         return items.map(item => this.mapToUserInfo(item));
     }
 
-    async findOne(_id: string): Promise<IUser | null> {
+    async findOne(_id: string): Promise<IUserInfo | null> {
         this.logger.log(`finding user with id ${_id}`);
         const item = await this.userModel.findOne({ _id }).exec();
         if (!item) {
@@ -38,7 +38,7 @@ export class UserService {
         return item;
     }
 
-    async create(user: CreateUserDto): Promise<IUserInfo> {
+    async create(user: CreateUserDto): Promise<IUser> {
         this.logger.log(`Create user ${user.name}`);
         const createdItem = this.userModel.create(user);
         return createdItem;
@@ -54,10 +54,8 @@ export class UserService {
             name: item.name,
             password: item.password,
             emailAddress: item.emailAddress,
-            profileImgUrl: item.profileImgUrl,
             role: item.role,
             gender: item.gender,
-            isActive: item.isActive,
             position: item.position
         };
 }

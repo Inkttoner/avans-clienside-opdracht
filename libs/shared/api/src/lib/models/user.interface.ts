@@ -1,11 +1,11 @@
 // import { IEntity } from 'libs/share-a-meal/common/src/lib/entity/entity.model';
-import { IMeal } from './meal.interface';
 import { IToken, IUserRegistration } from './auth.interface';
 import { Id } from './id.type';
+import { IEntity } from './entity.interface';
 
 export enum UserRole {
-    Guest = 'Guest',
-    Admin = 'Admin',
+    Player = 'Speler',
+    Supporter = 'Supporter',
     Unknown = 'Unknown'
 }
 
@@ -16,37 +16,19 @@ export enum UserGender {
     Unknown = 'Unknown'
 }
 
-/**
- * Minimal user information
- */
-
-export interface IUserIdentity{// extends IEntity {
+export interface IUser extends IEntity {
     name: string;
+    password: string;
     emailAddress: string;
-    profileImgUrl: string;
-    role: UserRole;
-    token?: string;
-}
-
-/**
- * All user information, excl. domain entities
- */
-export interface IUserInfo extends IUserRegistration {
-    _id: Id;
-    profileImgUrl: string;
     role: UserRole;
     gender: UserGender;
-    isActive: boolean;
+}
+
+export interface IUserInfo extends IUser {
     position: string;
+    goals: number;
+    assists: number;
 }
-
-/**
- * All user information, incl. domain entities
- */
-export interface IUser extends IUserInfo {
-    meals: IMeal[];
-}
-
 
 export type ICreateUser = Pick<IUser, 'name' | 'password' | 'emailAddress'>;
 export type IUpdateUser = Partial<Omit<IUser, 'id'>>;

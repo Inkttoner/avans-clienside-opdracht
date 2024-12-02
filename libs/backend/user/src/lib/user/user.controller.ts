@@ -35,7 +35,7 @@ export class UserController {
 
     @Post('')
     @UseGuards(UserExistGuard)
-    create(@Body() user: CreateUserDto): Promise<IUserInfo> {
+    create(@Body() user: CreateUserDto): Promise<IUser> {
         return this.userService.create(user);
     }
 

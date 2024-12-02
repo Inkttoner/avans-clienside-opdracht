@@ -3,7 +3,6 @@ import { Document, Schema as MongooseSchema } from 'mongoose';
 // import { v4 as uuid } from 'uuid';
 import isEmail from 'validator/lib/isEmail';
 import {
-    IMeal,
     IUser,
     UserGender,
     UserRole
@@ -44,17 +43,10 @@ export class User implements IUser {
 
     @Prop({
         required: false,
-        select: true,
-        default: 'https://cdn-icons-png.flaticon.com/512/219/219969.png'
-    })
-    profileImgUrl!: string;
-
-    @Prop({
-        required: false,
         type: String,
-        default: UserRole.Guest
+        default: UserRole.Unknown
     })
-    role: UserRole = UserRole.Guest;
+    role: UserRole = UserRole.Unknown;
 
     @Prop({
         required: false,
@@ -77,12 +69,7 @@ export class User implements IUser {
     })
     position = '';
 
-    @Prop({
-        default: [],
-        type: [MongooseSchema.Types.ObjectId],
-        ref: 'Meal'
-    })
-    meals: IMeal[] = [];
+
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
