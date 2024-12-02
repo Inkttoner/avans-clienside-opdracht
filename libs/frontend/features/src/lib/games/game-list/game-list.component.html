@@ -1,0 +1,67 @@
+@if(!games){
+    <div class="flex items-center justify-center h-96">
+        <div class="text-center">
+            <p class="text-2xl font-semibold text-gray-700 dark:text-gray-200">
+                Loading...
+            </p>
+        </div>
+    </div>
+    } @else if(games && games.length === 0){
+    <div class="flex items-center justify-center h-96">
+        <div class="text-center">
+            <p class="text-2xl font-semibold text-gray-700 dark:text-gray-200">
+                Geen wedstrijden gevonden
+            </p>
+        </div>
+    </div>
+    } @else{
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table
+            class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+        >
+            <thead
+                class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+            >
+                <tr>
+                    <th scope="col" class="px-6 py-3">Datum</th>
+                    <th scope="col" class="px-6 py-3">Tegenstander</th>
+                    <th scope="col" class="px-6 py-3">Tijd</th>
+                    <th scope="col" class="px-6 py-3">VerzamelTijd</th>
+                    <th scope="col" class="px-6 py-3">Uit/thuis</th>
+                    <th scope="col" class="px-6 py-3">Vergoeding</th>
+                    <th scope="col" class="px-6 py-3">Spelers</th>
+                    <th scope="col" class="px-6 py-3">
+                        <span class="sr-only">Edit</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let game of games">
+                <tr
+                    routerLink="{{ game._id }}"
+                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600"
+                >
+                    <th
+                        scope="row"
+                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    >
+                        {{ game.date }}
+                    </th>
+                    <td class="px-6 py-4">{{ game.opponent }}</td>
+                    <td class="px-6 py-4">{{ game.time }}</td>
+                    <td class="px-6 py-4">{{ game.timeToGather }}</td>
+                    <td class="px-6 py-4">{{ game.isHomeGame }}</td>
+                    <td class="px-6 py-4">{{ game.fee }}</td>
+                    <td class="px-6 py-4">{{ game.players}}</td>
+                    <td class="px-6 py-4 text-right">
+                        <a
+                            href="#"
+                            class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                            >Edit</a
+                        >
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    }
+    

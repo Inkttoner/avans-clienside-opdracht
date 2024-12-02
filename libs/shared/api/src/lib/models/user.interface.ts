@@ -25,6 +25,7 @@ export interface IUser extends IEntity {
 }
 
 export interface IUserInfo extends IUser {
+    _id: Id;
     position: string;
     goals: number;
     assists: number;

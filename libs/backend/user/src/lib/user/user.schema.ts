@@ -57,18 +57,24 @@ export class User implements IUser {
 
     @Prop({
         required: false,
-        type: Boolean,
-        default: true
-    })
-    isActive = true;
-
-    @Prop({
-        required: false,
         type: String,
         default: ''
     })
     position = '';
 
+    @Prop({
+        required: false,
+        type: Number,
+        default: 0
+    })
+    goals = 0;
+
+    @Prop({
+        required: false,
+        type: Number,
+        default: 0
+    })
+    assists = 0;
 
 }
 

@@ -21,13 +21,6 @@ export class UserController {
         return this.userService.findAll();
     }
 
-    // this method should precede the general getOne method, otherwise it never matches
-    // @Get('self')
-    // async getSelf(@InjectToken() token: Token): Promise<IUser> {
-    //     const result = await this.userService.getOne(token.id);
-    //     return result;
-    // }
-
     @Get(':id')
     async findOne(@Param('id') id: string): Promise<IUser | null> {
         return this.userService.findOne(id);

@@ -56,7 +56,9 @@ export class UserService {
             emailAddress: item.emailAddress,
             role: item.role,
             gender: item.gender,
-            position: item.position
+            position: item.position,
+            goals: item.goals,
+            assists: item.assists
         };
 }
 }
