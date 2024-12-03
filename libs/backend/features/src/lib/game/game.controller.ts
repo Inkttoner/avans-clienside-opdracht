@@ -8,7 +8,7 @@ import {
     UseGuards
 } from '@nestjs/common';
 import { GameService } from './game.service';
-import { IGame } from '@avans-nx-workshop/shared/api';
+import { IGame, IPlayer } from '@avans-nx-workshop/shared/api';
 import { CreateGameDto, UpdateGameDto } from '@avans-nx-workshop/backend/dto';
 
 @Controller('game')
@@ -20,6 +20,11 @@ export class GameController {
         return this.gameService.findAll();
     }
 
+    @Get('players/:id')
+    async getPlayersFromGame(@Param('id') id: string): Promise<IPlayer[] | null> {
+        return this.gameService.getPlayersFromGame(id);
+    }
+    
     @Get(':id')
     async findOne(@Param('id') id: string): Promise<IGame | null> {
         return this.gameService.findOne(id);

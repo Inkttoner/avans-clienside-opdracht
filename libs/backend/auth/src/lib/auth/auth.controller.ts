@@ -10,7 +10,7 @@ import { AuthService } from './auth.service';
 import { Public } from '../decorators/decorators';
 import {
     IUserCredentials,
-    IUserInfo,
+    IPlayer,
     IUserRegistration
 } from '@avans-nx-workshop/shared/api';
 import { CreateUserDto } from '@avans-nx-workshop/backend/dto';
@@ -24,7 +24,7 @@ export class AuthController {
 
     @Public()
     @Post('login')
-    async login(@Body() credentials: IUserCredentials): Promise<IUserInfo> {
+    async login(@Body() credentials: IUserCredentials): Promise<IPlayer> {
         this.logger.log('Login');
         return await this.authService.login(credentials);
     }
@@ -32,7 +32,7 @@ export class AuthController {
     @Public()
     @UseGuards(UserExistGuard)
     @Post('register')
-    async register(@Body() user: CreateUserDto): Promise<IUserInfo> {
+    async register(@Body() user: CreateUserDto): Promise<IPlayer> {
         this.logger.log('Register');
         return await this.authService.register(user);
     }

@@ -44,18 +44,23 @@
                         scope="row"
                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                     >
-                        {{ game.date }}
+                        {{ game.date | date: 'dd-MM-yyyy' }}
                     </th>
                     <td class="px-6 py-4">{{ game.opponent }}</td>
                     <td class="px-6 py-4">{{ game.time }}</td>
                     <td class="px-6 py-4">{{ game.timeToGather }}</td>
-                    <td class="px-6 py-4">{{ game.isHomeGame }}</td>
-                    <td class="px-6 py-4">{{ game.fee }}</td>
-                    <td class="px-6 py-4">{{ game.players}}</td>
+                    @if (game.isHomeGame) { <td class="px-6 py-4">thuis</td>}
+                    @else { <td class="px-6 py-4">uit</td>}
+                    @if ( game.fee == 0) {<td class="px-6 py-4"> n.v.t </td>}
+                    @else {<td class="px-6 py-4">€ {{ game.fee }}</td>}
+                    <td class="px-6 py-4"><a
+                        (click)="navigateToPlayersForGame(game._id)"
+                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer"
+                        >Show players</a
+                    ></td>
                     <td class="px-6 py-4 text-right">
                         <a
-                            href="#"
-                            class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                            class="font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer"
                             >Edit</a
                         >
                     </td>

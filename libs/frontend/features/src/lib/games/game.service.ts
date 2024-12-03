@@ -15,6 +15,7 @@ export class GameService {
         console.log('Service constructor aangeroepen');
     }
 
+
     getGamesAsync(): Observable<IGame[]> {
         console.log('getGamesAsync aangeroepen');
         return this.http

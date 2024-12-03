@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsString, IsBoolean, IsOptional, IsNumber, IsDate } from 'class-validator';
 import { Type } from 'class-transformer';
-import { ICreateGame, IGame, Id,IUser } from '@avans-nx-workshop/shared/api';
+import { ICreateGame, IGame, Id,IUser, IPlayer } from '@avans-nx-workshop/shared/api';
 
 export class CreateGameDto implements ICreateGame {
     @Type(()=> Date)
@@ -54,7 +54,7 @@ export class UpdateGameDto implements IGame {
 
 
     @IsOptional()
-    players: IUser[] = [];
+    players: IPlayer[] = [];
 
     @IsBoolean()
     @IsOptional()

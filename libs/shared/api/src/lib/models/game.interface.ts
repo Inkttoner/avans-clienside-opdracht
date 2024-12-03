@@ -1,5 +1,5 @@
 import { IEntity } from './entity.interface';
-import { IUser} from './user.interface';
+import { IPlayer, IUser} from './user.interface';
 
 export interface IGame extends IEntity {
     date: Date;
@@ -8,7 +8,7 @@ export interface IGame extends IEntity {
     fee: number;
     time: string;
     timeToGather: string;
-    players: IUser[];
+    players: IPlayer[];
     isPlayed: boolean;
 }
 

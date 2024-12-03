@@ -8,7 +8,7 @@ import {
     UseGuards
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { IUserInfo, IUser } from '@avans-nx-workshop/shared/api';
+import { IPlayer, IUser } from '@avans-nx-workshop/shared/api';
 import { CreateUserDto, UpdateUserDto } from '@avans-nx-workshop/backend/dto';
 import { UserExistGuard } from './user-exists.guard';
 
@@ -17,7 +17,7 @@ export class UserController {
     constructor(private readonly userService: UserService) {}
 
     @Get()
-    async findAll(): Promise<IUserInfo[]> {
+    async findAll(): Promise<IPlayer[]> {
         return this.userService.findAll();
     }
 
@@ -36,7 +36,7 @@ export class UserController {
     update(
         @Param('id') id: string,
         @Body() user: UpdateUserDto
-    ): Promise<IUserInfo | null> {
+    ): Promise<IPlayer | null> {
         return this.userService.update(id, user);
     }
 }

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { IUserInfo } from '@avans-nx-workshop/shared/api';
+import { IPlayer } from '@avans-nx-workshop/shared/api';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../user.sevice';
 import { Subscription } from 'rxjs';
@@ -10,8 +10,8 @@ import { Subscription } from 'rxjs';
     styles: []
 })
 export class UserDetailsComponent implements OnInit, OnDestroy {
-    user?: IUserInfo 
-    subscription?: Subscription
+    user?: IPlayer;
+    subscription?: Subscription;
 
     constructor(
         private userService: UserService,
@@ -21,12 +21,12 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.route.paramMap.subscribe((params) => {
             const userId = params.get('id');
-            this.subscription = this.userService.getUserById(String(userId)).subscribe((user) => {
-              this.user = user;
-            })
-          });
+            this.subscription = this.userService
+                .getUserById(String(userId))
+                .subscribe((user) => {
+                    this.user = user;
+                });
+        });
     }
-    ngOnDestroy(): void {
-        
-    }
+    ngOnDestroy(): void {}
 }

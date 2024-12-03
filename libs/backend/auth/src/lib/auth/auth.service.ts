@@ -9,7 +9,7 @@ import {
     UserDocument
 } from '@avans-nx-workshop/backend/user';
 import { JwtService } from '@nestjs/jwt';
-import { IUserCredentials, IUserInfo } from '@avans-nx-workshop/shared/api';
+import { IUserCredentials, IPlayer } from '@avans-nx-workshop/shared/api';
 import { CreateUserDto } from '@avans-nx-workshop/backend/dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -35,7 +35,7 @@ export class AuthService {
         return null;
     }
 
-    async login(credentials: IUserCredentials): Promise<IUserInfo> {
+    async login(credentials: IUserCredentials): Promise<IPlayer> {
         this.logger.log('login ' + credentials.emailAddress);
         return await this.userModel
             .findOne({
@@ -65,7 +65,7 @@ export class AuthService {
             });
     }
 
-    async register(user: CreateUserDto): Promise<IUserInfo> {
+    async register(user: CreateUserDto): Promise<IPlayer> {
         this.logger.log(`Register user ${user.name}`);
         if (await this.userModel.findOne({ emailAddress: user.emailAddress })) {
             this.logger.debug('user exists');

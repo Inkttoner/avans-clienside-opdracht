@@ -1,9 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { IUserInfo } from '@avans-nx-workshop/shared/api';
-import{ UserService} from '../user.sevice';
+import { IPlayer } from '@avans-nx-workshop/shared/api';
+import { UserService } from '../user.sevice';
 import { Subscription } from 'rxjs';
-
-
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'avans-nx-workshop-user-list',
@@ -11,19 +10,26 @@ import { Subscription } from 'rxjs';
     styles: []
 })
 export class UserListComponent implements OnInit, OnDestroy {
-    users?: IUserInfo[] 
+    users?: IPlayer[];
     sub?: Subscription;
-    constructor(private userService: UserService) { }
+    constructor(private userService: UserService, private route: ActivatedRoute) {}
 
     ngOnInit(): void {
-        // this.users= this.userService.getUsers(); 
-        this.sub = this.userService.getUsersAsync().subscribe((users) => {
-            this.users = users;
+        this.route.queryParams.subscribe(params => {
+            const gameId = params['gameId'];
+            if (gameId) {
+                this.sub = this.userService.getPlayersForGameAsync(gameId).subscribe((users) => {
+                    this.users = users;
+                });
+            } else {
+                this.sub = this.userService.getUsersAsync().subscribe((users) => {
+                    this.users = users;
+                });
+            }
         });
     }
-    
+
     ngOnDestroy(): void {
         this.sub?.unsubscribe();
     }
-
 }

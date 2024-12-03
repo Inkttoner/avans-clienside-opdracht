@@ -3,11 +3,7 @@ import { IToken, IUserRegistration } from './auth.interface';
 import { Id } from './id.type';
 import { IEntity } from './entity.interface';
 
-export enum UserRole {
-    Player = 'Speler',
-    Supporter = 'Supporter',
-    Unknown = 'Unknown'
-}
+
 
 export enum UserGender {
     Male = 'Male',
@@ -20,11 +16,11 @@ export interface IUser extends IEntity {
     name: string;
     password: string;
     emailAddress: string;
-    role: UserRole;
     gender: UserGender;
+    dateOfBirth: Date;
 }
 
-export interface IUserInfo extends IUser {
+export interface IPlayer extends IUser {
     _id: Id;
     position: string;
     goals: number;
@@ -33,4 +29,4 @@ export interface IUserInfo extends IUser {
 
 export type ICreateUser = Pick<IUser, 'name' | 'password' | 'emailAddress'>;
 export type IUpdateUser = Partial<Omit<IUser, 'id'>>;
-export type IUpsertUser = IUser;
+export type IUpsertUser = IPlayer;

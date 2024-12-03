@@ -5,7 +5,6 @@ import isEmail from 'validator/lib/isEmail';
 import {
     IUser,
     UserGender,
-    UserRole
 } from '@avans-nx-workshop/shared/api';
 import { IsMongoId } from 'class-validator';
 
@@ -15,6 +14,12 @@ export type UserDocument = User & Document;
 export class User implements IUser {
     @IsMongoId()
     _id!: string;
+
+    @Prop({
+        required: true,
+        type: Date
+    })
+    dateOfBirth!: Date;
 
     @Prop({
         required: true,
@@ -40,13 +45,6 @@ export class User implements IUser {
         // }
     })
     emailAddress = '';
-
-    @Prop({
-        required: false,
-        type: String,
-        default: UserRole.Unknown
-    })
-    role: UserRole = UserRole.Unknown;
 
     @Prop({
         required: false,

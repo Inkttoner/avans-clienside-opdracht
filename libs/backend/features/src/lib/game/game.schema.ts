@@ -4,7 +4,7 @@ import { Document, Schema as MongooseSchema } from 'mongoose';
 import isEmail from 'validator/lib/isEmail';
 import {
    IGame,
-   IUser,
+   IPlayer,
 } from '@avans-nx-workshop/shared/api';
 import { IsMongoId } from 'class-validator';
 
@@ -56,7 +56,7 @@ export type GameDocument = Game & Document;
         type: [String],
         default: []
     })
-    players: IUser[] = [];
+    players: IPlayer[] = [];
 
     @Prop({
         required: false,

@@ -12,7 +12,7 @@ export const appRoutes: Route[] = [
     {path: 'about', component: AboutComponent},
     {path: 'users/:id', component: UserDetailsComponent},
     {path: 'games', component: GameListComponent},
-    
+    {path: 'players', component: UserListComponent},
 
     {path: '**', redirectTo: 'dashboard'}
 ];

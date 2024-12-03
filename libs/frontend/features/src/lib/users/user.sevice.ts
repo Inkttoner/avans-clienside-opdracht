@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, delay, map } from 'rxjs';
 import {
-    IUserInfo,
-    UserGender,
-    UserRole,
+    IPlayer,
+    IGame,
     ApiResponse
 } from '@avans-nx-workshop/shared/api';
 import { environment } from '@avans-nx-workshop/shared/util-env';
@@ -17,16 +16,23 @@ export class UserService {
         console.log('Service constructor aangeroepen');
     }
 
-    getUsersAsync(): Observable<IUserInfo[]> {
+    getPlayersForGameAsync(_id: string): Observable<IPlayer[]> {
+        console.log('getPlayersForGameAsync aangeroepen');
+        return this.http
+            .get<ApiResponse<any>>(`${environment.dataApiUrl}/game/players/${_id}`)
+            .pipe(map((response) => response.results));
+    }
+
+    getUsersAsync(): Observable<IPlayer[]> {
         console.log('getUsersAsync aangeroepen');
         return this.http
             .get<ApiResponse<any>>(`${environment.dataApiUrl}/user`)
             .pipe(map((response) => response.results));
     }
-    getUserById(_id: string): Observable<IUserInfo>{
-      console.log('getUserById aangeroepen');
-      return this.http
-          .get<ApiResponse<any>>(`${environment.dataApiUrl}/user/${_id}`)
-          .pipe(map((response) => response.results));
+    getUserById(_id: string): Observable<IPlayer> {
+        console.log('getUserById aangeroepen');
+        return this.http
+            .get<ApiResponse<any>>(`${environment.dataApiUrl}/user/${_id}`)
+            .pipe(map((response) => response.results));
     }
 }
