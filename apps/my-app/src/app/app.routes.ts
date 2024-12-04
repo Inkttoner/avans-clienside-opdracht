@@ -1,18 +1,25 @@
 import { Route } from '@angular/router';
-import { UserListComponent } from '@avans-nx-workshop/features';
+import {
+    UserListComponent,
+    UserDetailsComponent,
+    GameListComponent,
+    LoginComponent,
+    RegistrationComponent
+} from '@avans-nx-workshop/features';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AboutComponent } from './components/about/about.component';
-import { UserDetailsComponent } from '@avans-nx-workshop/features'
-import { GameListComponent } from '@avans-nx-workshop/features'
+import { LoggedInAuthGuard } from 'libs/frontend/features/src/lib/auth/auth.guard';
 
 export const appRoutes: Route[] = [
-    {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
-    {path: 'dashboard', component: DashboardComponent},
-    {path: 'users', component: UserListComponent},
-    {path: 'about', component: AboutComponent},
-    {path: 'users/:id', component: UserDetailsComponent},
-    {path: 'games', component: GameListComponent},
-    {path: 'players', component: UserListComponent},
+    { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+    { path: 'dashboard', component: DashboardComponent },
+    { path: 'users', canActivate:[LoggedInAuthGuard], component: UserListComponent },
+    { path: 'about', component: AboutComponent },
+    { path: 'users/:id', component: UserDetailsComponent },
+    { path: 'games', component: GameListComponent },
+    { path: 'players', component: UserListComponent },
+    { path: 'login', component: LoginComponent },
+    { path: 'register', component: RegistrationComponent },
 
-    {path: '**', redirectTo: 'dashboard'}
+    { path: '**', redirectTo: 'dashboard' }
 ];

@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsBoolean, IsOptional, IsDate } from 'class-validator';
+import { IsNotEmpty, IsString, IsBoolean, IsOptional, IsDate, IsDateString } from 'class-validator';
 import {
     // ICreateUser,
     IUpdateUser,
@@ -20,6 +20,11 @@ export class CreateUserDto implements IUserRegistration {
     @IsString()
     @IsNotEmpty()
     emailAddress!: string;
+
+    @IsDateString()
+    @IsNotEmpty()
+    dateOfBirth!: Date;
+
 }
 
 export class UpsertUserDto implements IUpsertUser {

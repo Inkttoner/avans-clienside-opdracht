@@ -26,6 +26,7 @@ export class AuthController {
     @Post('login')
     async login(@Body() credentials: IUserCredentials): Promise<IPlayer> {
         this.logger.log('Login');
+        this.logger.log('credentials '+credentials.emailAddress +' '+ credentials.password);
         return await this.authService.login(credentials);
     }
 

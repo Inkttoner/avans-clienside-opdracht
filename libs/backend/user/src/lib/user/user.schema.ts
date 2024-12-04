@@ -16,7 +16,7 @@ export class User implements IUser {
     _id!: string;
 
     @Prop({
-        required: true,
+        required: false,
         type: Date
     })
     dateOfBirth!: Date;

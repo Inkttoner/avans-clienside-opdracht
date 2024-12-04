@@ -46,14 +46,17 @@ export class AuthService {
             .then((user) => {
                 if (user && user.password === credentials.password) {
                     const payload = {
-                        user_id: user._id
+                        user_id: user._id 
                     };
+                    this.logger.log('User found ' + user.name + ' ' + user._id);
                     return {
                         _id: user._id,
                         name: user.name,
                         emailAddress: user.emailAddress,
                         token: this.jwtService.sign(payload)
+                        
                     };
+                    
                 } else {
                     const errMsg = 'Email not found or password invalid';
                     this.logger.debug(errMsg);

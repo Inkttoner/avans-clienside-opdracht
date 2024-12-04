@@ -18,6 +18,7 @@ export interface IUser extends IEntity {
     emailAddress: string;
     gender: UserGender;
     dateOfBirth: Date;
+    token?: string;
 }
 
 export interface IPlayer extends IUser {
@@ -27,6 +28,6 @@ export interface IPlayer extends IUser {
     assists: number;
 }
 
-export type ICreateUser = Pick<IUser, 'name' | 'password' | 'emailAddress'>;
+export type ICreateUser = Pick<IUser, 'name' | 'password' | 'emailAddress' | 'dateOfBirth'>;
 export type IUpdateUser = Partial<Omit<IUser, 'id'>>;
 export type IUpsertUser = IPlayer;
