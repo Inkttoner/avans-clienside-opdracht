@@ -15,7 +15,7 @@ import { Subscription } from 'rxjs';
 })
 export class RegistrationComponent implements OnInit, OnDestroy {
     registerForm: FormGroup;
-    subscription!: Subscription;
+    subscription?: Subscription;
     
     constructor(private http: HttpClient, private authService: AuthService, private router: Router) {
         console.log('RegistrationComponent constructor aangeroepen');

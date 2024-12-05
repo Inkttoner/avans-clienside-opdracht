@@ -49,13 +49,18 @@ export class UserService {
         return this.userModel.findByIdAndUpdate({ _id }, user);
     }
 
+    async delete(_id: string): Promise<IPlayer | null> {
+        this.logger.log(`Delete user ${_id}`);
+        return this.userModel.findByIdAndDelete({ _id });
+    }
+
     private mapToUserInfo(item: UserDocument): IPlayer {
         return {
             _id: item._id,
             name: item.name,
             password: item.password,
             emailAddress: item.emailAddress,
-            gender: item.gender,
+            role: item.role,
             position: item.position,
             goals: item.goals,
             assists: item.assists,

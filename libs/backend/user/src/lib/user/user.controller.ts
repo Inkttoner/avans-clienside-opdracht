@@ -5,7 +5,8 @@ import {
     Param,
     Post,
     Put,
-    UseGuards
+    UseGuards,
+    Delete
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { IPlayer, IUser } from '@avans-nx-workshop/shared/api';
@@ -38,5 +39,10 @@ export class UserController {
         @Body() user: UpdateUserDto
     ): Promise<IPlayer | null> {
         return this.userService.update(id, user);
+    }
+
+    @Delete(':id')
+    delete(@Param('id') id: string): Promise<IPlayer | null> {
+        return this.userService.delete(id);
     }
 }

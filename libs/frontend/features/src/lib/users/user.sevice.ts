@@ -40,6 +40,20 @@ export class UserService {
             .pipe(map((response) => response.results));
     }
 
+    updateUser(userId: string| undefined, user: IPlayer): Observable<IPlayer> {
+        console.log('updateUser aangeroepen');
+        return this.http
+            .put<ApiResponse<any>>(`${environment.dataApiUrl}/user/${userId}`, user)
+            .pipe(map((response) => response.results));
+    }
+
+    deleteUser(userId: string): Observable<IPlayer> {
+        console.log('deleteUser aangeroepen');
+        return this.http
+            .delete<ApiResponse<any>>(`${environment.dataApiUrl}/user/${userId}`)
+            .pipe(map((response) => response.results));
+    }
+
     // createUser(user: IUserRegistration): Observable<IUserRegistration> {
     //     console.log('createUser aangeroepen');
     //     return this.http

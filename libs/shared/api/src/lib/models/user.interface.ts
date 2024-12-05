@@ -3,7 +3,10 @@ import { IToken, IUserRegistration } from './auth.interface';
 import { Id } from './id.type';
 import { IEntity } from './entity.interface';
 
-
+export enum UserRole{
+    Admin = 'Admin',
+    User = 'User',
+}
 
 export enum UserGender {
     Male = 'Male',
@@ -16,14 +19,14 @@ export interface IUser extends IEntity {
     name: string;
     password: string;
     emailAddress: string;
-    gender: UserGender;
+    role: UserRole;
     dateOfBirth: Date;
     token?: string;
+    position?: string;
 }
 
 export interface IPlayer extends IUser {
     _id: Id;
-    position: string;
     goals: number;
     assists: number;
 }

@@ -44,19 +44,33 @@
             <a routerLink="/games" class="text-sm/6 font-semibold text-gray-900"
                 >Komende wedstrijden</a
             >
+            <a routerLink="/playedgames" class="text-sm/6 font-semibold text-gray-900"
+            >Gespeelde wedstrijden</a
+        >
             <a href="#" class="text-sm/6 font-semibold text-gray-900">Quotes</a>
             <a routerLink="/about" class="text-sm/6 font-semibold text-gray-900"
                 >About</a
             >
+        @if(isAdmin){
+            <a routerLink="/admin" class="text-sm/6 font-semibold text-gray-900"
+                >Admin</a
+            >
+        }
+        @if(isLoggedIn){
+            <a routerLink="/users/{{userId}}" class="text-sm/6 font-semibold text-gray-900"
+                >Profile</a
+            >
+        }
+
         </div>
         @if(!isLoggedIn){
         <div class="hidden lg:flex lg:flex-1 lg:justify-end">
             <a routerLink="/login" class="text-sm/6 font-semibold text-gray-900"
                 >Log in <span aria-hidden="true">&rarr;</span></a
             >
+        
         </div>
-    }
-    @else{
+    }    @else{
         <div class="hidden lg:flex lg:flex-1 lg:justify-end">
             <button (click)="logout()"  class="text-sm/6 font-semibold text-gray-900"
                 >Log out <span aria-hidden="true">&rarr;</span></button

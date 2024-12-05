@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '@avans-nx-workshop/features';
 import { Subscription } from 'rxjs';
-import { IUser } from '@avans-nx-workshop/shared/api';
+import { IUser, UserRole } from '@avans-nx-workshop/shared/api';
 
 
 @Component({
@@ -12,6 +12,8 @@ import { IUser } from '@avans-nx-workshop/shared/api';
 export class HeaderComponent implements OnInit, OnDestroy {
     subscription!: Subscription;
     isLoggedIn = false;
+    isAdmin = false;
+    userId: string | undefined;
     constructor(private auth: AuthService) {
         console.log('HeaderComponent constructor aangeroepen');
     }
@@ -20,7 +22,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
         console.log('HeaderComponent ngOnInit aangeroepen');
         this.subscription = this.auth.currentUser$.subscribe((user: IUser | undefined) => {
             this.isLoggedIn = !!user;
+            this.userId = user?._id;
             console.log(this.isLoggedIn);
+            if (user) {
+                this.isAdmin = user.role === UserRole.Admin;
+            }
         });
     }
     ngOnDestroy(): void {
@@ -30,6 +36,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     logout(): void {
         this.auth.logout();
+        this.isLoggedIn = false;
+        this.isAdmin = false;
     }
     
 }

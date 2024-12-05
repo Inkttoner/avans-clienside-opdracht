@@ -15,6 +15,12 @@ export class GameService {
         console.log('Service constructor aangeroepen');
     }
 
+    createGame(game: IGame): Observable<IGame> {
+        console.log('createGame aangeroepen');
+        return this.http
+            .post<ApiResponse<any>>(`${environment.dataApiUrl}/game`, game)
+            .pipe(map((response) => response.results));
+    }
 
     getGamesAsync(): Observable<IGame[]> {
         console.log('getGamesAsync aangeroepen');

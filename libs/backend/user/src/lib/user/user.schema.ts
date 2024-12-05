@@ -4,7 +4,7 @@ import { Document, Schema as MongooseSchema } from 'mongoose';
 import isEmail from 'validator/lib/isEmail';
 import {
     IUser,
-    UserGender,
+    UserRole,
 } from '@avans-nx-workshop/shared/api';
 import { IsMongoId } from 'class-validator';
 
@@ -49,9 +49,9 @@ export class User implements IUser {
     @Prop({
         required: false,
         type: String,
-        default: UserGender.Unknown
+        default: UserRole.User
     })
-    gender: UserGender = UserGender.Unknown;
+    role: UserRole = UserRole.User;
 
     @Prop({
         required: false,

@@ -1,0 +1,40 @@
+<div class="container mx-auto py-8">
+    <h1 class="text-3xl font-bold mb-8">Admin Dashboard</h1>
+
+    <!-- Create Game Section -->
+    <div class="bg-white shadow rounded-lg p-6 mb-8">
+        <h2 class="text-2xl font-bold mb-4">Create Game</h2>
+        <form class="grid grid-cols-1 gap-6 sm:grid-cols-2"[formGroup]="createGameForm" (ngSubmit)="onSubmit()">
+            <div>
+                <label for="date" class="block text-sm font-medium text-gray-700">Date</label>
+                <input type="date" id="date" name="date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" formControlName="date">
+            </div>
+            <div>
+                <label for="opponent" class="block text-sm font-medium text-gray-700">Opponent</label>
+                <input type="text" id="opponent" name="opponent" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" formControlName="opponent">
+            </div>
+            <div>
+                <label for="isHomeGame" class="block text-sm font-medium text-gray-700">Is Home Game</label>
+                <select id="isHomeGame" name="isHomeGame" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" formControlName="isHomeGame" >
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+            </div>
+            <div>
+                <label for="fee" class="block text-sm font-medium text-gray-700">Fee</label>
+                <input type="number" id="fee" name="fee" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" formControlName="fee" >
+            </div>
+            <div>
+                <label for="time" class="block text-sm font-medium text-gray-700">Time</label>
+                <input type="text" id="time" name="time" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" formControlName="time">
+            </div>
+            <div>
+                <label for="timeToGather" class="block text-sm font-medium text-gray-700">Time to Gather</label>
+                <input type="text" id="timeToGather" name="timeToGather" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" formControlName="timeToGather">
+            </div>
+            <div class="col-span-full">
+                <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Create Game</button>
+            </div>
+        </form>
+    </div>
+</div>

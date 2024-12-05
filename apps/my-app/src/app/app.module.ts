@@ -9,8 +9,7 @@ import { FooterComponent } from './components/ui/footer/footer.component';
 import { HeaderComponent } from './components/ui/header/header.component';
 import { FeaturesModule } from '@avans-nx-workshop/features';
 import { HttpClientModule } from '@angular/common/http';
-import { LoginComponent } from '../../../../libs/frontend/features/src/lib/auth/login/login.component';
-import { RegistrationComponent } from '../../../../libs/frontend/features/src/lib/auth/registration/registration.component';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
@@ -20,8 +19,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         AboutComponent,
         FooterComponent,
         HeaderComponent,
-        LoginComponent,
-        RegistrationComponent
     ],
     imports: [
         BrowserModule,

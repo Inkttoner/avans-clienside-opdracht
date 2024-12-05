@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsBoolean, IsOptional, IsNumber, IsDate } from 'class-validator';
+import { IsNotEmpty, IsString, IsBoolean, IsOptional, IsNumber, IsDate, IsDateString } from 'class-validator';
 import { Type } from 'class-transformer';
 import { ICreateGame, IGame, Id,IUser, IPlayer } from '@avans-nx-workshop/shared/api';
 
@@ -23,6 +23,10 @@ export class CreateGameDto implements ICreateGame {
     @IsString()
     @IsNotEmpty()
     timeToGather!: string;
+
+    @IsNumber()
+    @IsOptional()
+    fee: number = 0;
 }
 
 export class UpdateGameDto implements IGame {

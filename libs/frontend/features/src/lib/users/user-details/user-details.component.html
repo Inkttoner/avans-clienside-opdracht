@@ -32,9 +32,25 @@
                         <hr class="my-6 border-t border-gray-300">
                         <div class="flex flex-col">
                             <span class="text-gray-700 uppercase font-bold tracking-wider mb-2">Positie</span>
-                            <ul>
-                                <li class="mb-2"> {{user.position}} </li>
-                            </ul>
+                            @if(canEdit&& user.position ===''){
+                                <div class="mt-2 flex flex-wrap gap-4 justify-center text-red-500">
+                                    Je moet nog een positie toevoegen
+                                    <a routerLink="edit" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">Pas gegevens aan</a>
+                                </div>
+                            }
+                            @else if(canEdit){
+                                <ul>
+                                    <li class="mb-2"> {{user.position}} </li>
+                                </ul>
+                                <div class="mt-2 flex flex-wrap gap-4 justify-center text-red-500">
+                                    <a routerLink="edit" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">Pas gegevens aan</a>
+                                </div>
+                            }
+                            @else{
+                                <ul>
+                                    <li class="mb-2"> {{user.position}} </li>
+                                </ul>
+                            }
                         </div>
                     </div>
                 </div>

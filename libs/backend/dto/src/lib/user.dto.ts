@@ -6,6 +6,7 @@ import {
     IUserRegistration,
     Id,
     UserGender,
+    UserRole,
 } from '@avans-nx-workshop/shared/api';
 
 export class CreateUserDto implements IUserRegistration {
@@ -44,7 +45,7 @@ export class UpsertUserDto implements IUpsertUser {
 
     @IsString()
     @IsNotEmpty()
-    gender: UserGender = UserGender.Unknown;
+    role: UserRole = UserRole.User;
 
     @IsString()
     @IsNotEmpty()

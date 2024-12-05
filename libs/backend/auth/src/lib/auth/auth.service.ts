@@ -53,8 +53,10 @@ export class AuthService {
                         _id: user._id,
                         name: user.name,
                         emailAddress: user.emailAddress,
-                        token: this.jwtService.sign(payload)
-                        
+                        token: this.jwtService.sign(payload),
+                        position: user.position,
+                        dateOfBirth: user.dateOfBirth,
+                        role: user.role
                     };
                     
                 } else {
