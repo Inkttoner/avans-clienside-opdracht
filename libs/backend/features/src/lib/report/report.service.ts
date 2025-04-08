@@ -3,7 +3,7 @@ import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Report as ReportModel, ReportDocument } from './report.schema';
 import { IGame, IReport } from '@avans-nx-workshop/shared/api';
-import { CreateReportDto} from '@avans-nx-workshop/backend/dto';
+import { CreateReportDto, UpdateGameDto} from '@avans-nx-workshop/backend/dto';
 
 @Injectable()
 export class ReportService {
@@ -31,6 +31,11 @@ export class ReportService {
         this.logger.log(`Create report ${report.game}`);
         const createdItem = this.reportModel.create(report);
         return createdItem;
+    }
+
+    async update(_id: string, report: UpdateGameDto): Promise<IReport | null> {
+        this.logger.log(`Update report ${_id}`);
+        return this.reportModel.findByIdAndUpdate({_id}, report);
     }
 
     private mapToReport(item: ReportDocument): IReport {

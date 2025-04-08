@@ -11,6 +11,8 @@ import { AdminGuard, LoggedInAuthGuard, UserEditGuard } from './auth/auth.guard'
 import { ReactiveFormsModule } from '@angular/forms';
 import { AdminComponent } from './admin/admin.component';
 import { GameDetailComponent } from './games/game-details/game-detail.component';
+import { ReportDetailComponent } from './report/report-detail/report-detail.component';
+import { CreateReportComponent } from './report/create-report/create-report.component';
 
 @NgModule({
     imports: [CommonModule, RouterModule, ReactiveFormsModule],
@@ -22,7 +24,9 @@ import { GameDetailComponent } from './games/game-details/game-detail.component'
         LoginComponent,
         RegistrationComponent,
         AdminComponent,
-        GameDetailComponent
+        GameDetailComponent,
+        ReportDetailComponent,
+        CreateReportComponent
     ],
     providers: [LoggedInAuthGuard, UserEditGuard, AdminGuard]
 })

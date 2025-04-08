@@ -11,7 +11,7 @@ import {
 import { ReportService } from './report.service';
 import {GameService} from '../game/game.service'
 import { IReport } from '@avans-nx-workshop/shared/api';
-import { CreateReportDto } from '@avans-nx-workshop/backend/dto';
+import { CreateReportDto, UpdateGameDto } from '@avans-nx-workshop/backend/dto';
 
 @Controller('report')
 export class ReportController {
@@ -38,11 +38,11 @@ export class ReportController {
         return this.reportService.create(game);
     }
 
-    // @Put(':id')
-    // update(
-    //     @Param('id') id: string,
-    //     @Body() game: UpdateGameDto
-    // ): Promise<IReport | null> {
-    //     return this.reportService.update(id, game);
-    // }
+    @Put(':id')
+    update(
+        @Param('id') id: string,
+        @Body() game: UpdateGameDto
+    ): Promise<IReport | null> {
+        return this.reportService.update(id, game);
+    }
 }

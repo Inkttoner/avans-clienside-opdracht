@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
-import { IUser, IUserRegistration } from '@avans-nx-workshop/shared/api';
+import { IUser, IUserRegistration, UserRole } from '@avans-nx-workshop/shared/api';
 import { Router } from '@angular/router';
 import { environment } from '@avans-nx-workshop/shared/util-env';
 import { map, tap, catchError, switchMap } from 'rxjs/operators';
@@ -143,6 +143,18 @@ export class AuthService {
       return of(undefined);
     }
   }
+
+    isUserAdmin(): Observable<boolean> {
+    return this.currentUser$.pipe(
+      map((user: IUser | undefined) => {
+        if (user) {
+          return user.role === UserRole.Admin;
+        }
+        return false;
+      })
+    );
+    
+    }
 
   private saveUserToLocalStorage(user: IUser): void {
     localStorage.setItem(this.CURRENT_USER, JSON.stringify(user));
