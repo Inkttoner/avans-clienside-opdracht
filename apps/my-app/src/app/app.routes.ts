@@ -6,7 +6,8 @@ import {
     LoginComponent,
     RegistrationComponent,
     UserEditComponent,
-    AdminComponent
+    AdminComponent,
+    GameDetailComponent
 } from '@avans-nx-workshop/features';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AboutComponent } from './components/about/about.component';
@@ -25,6 +26,7 @@ export const appRoutes: Route[] = [
     { path: 'register', component: RegistrationComponent },
     {path: 'users/:id/edit', canActivate:[UserEditGuard], component: UserEditComponent},
     {path: 'admin', canActivate:[AdminGuard], component: AdminComponent},
+    {path: 'games/:id', component: GameDetailComponent},
 
     { path: '**', redirectTo: 'dashboard' }
 ];

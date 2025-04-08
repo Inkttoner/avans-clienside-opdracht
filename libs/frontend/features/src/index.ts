@@ -9,3 +9,4 @@ export * from './lib/auth/registration/registration.component';
 export * from './lib/auth/auth.service';
 export * from './lib/users/user-edit/user-edit.component';
 export * from './lib/admin/admin.component';
+export * from './lib/games/game-details/game-detail.component';

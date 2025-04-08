@@ -64,6 +64,12 @@ export type GameDocument = Game & Document;
         default: false
     })
     isPlayed: boolean = false;
+
+    @Prop({
+        required: false,
+        type: String
+    })
+    score?: string;
      
 }
 

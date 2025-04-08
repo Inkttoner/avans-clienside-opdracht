@@ -10,6 +10,7 @@ export interface IGame extends IEntity {
     timeToGather: string;
     players: IPlayer[];
     isPlayed: boolean;
+    score?: string;
 }
 
 export type ICreateGame = Pick<IGame, 'date' | 'opponent' | 'isHomeGame' | 'time' | 'timeToGather'>;

@@ -30,9 +30,12 @@
                     <th scope="col" class="px-6 py-3">Uit/thuis</th>
                     <th scope="col" class="px-6 py-3">Vergoeding</th>
                     <th scope="col" class="px-6 py-3">Spelers</th>
+                    <th scope="col" class="px-6 py-3">Resultaat</th>
+                    @if(isAdmin){
                     <th scope="col" class="px-6 py-3">
                         <span class="sr-only">Edit</span>
                     </th>
+                }
                 </tr>
             </thead>
             <tbody *ngFor="let game of games">
@@ -58,12 +61,16 @@
                         class="font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer"
                         >Show players</a
                     ></td>
+                    @if (game.score == null) {<td class="px-6 py-4">-</td>}
+                    @else {<td class="px-6 py-4">{{ game.score}}</td>}
+                    @if(isAdmin){
                     <td class="px-6 py-4 text-right">
                         <a
                             class="font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer"
                             >Edit</a
                         >
                     </td>
+                }
                 </tr>
             </tbody>
         </table>

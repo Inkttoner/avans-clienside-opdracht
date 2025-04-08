@@ -62,6 +62,7 @@ export class GameService {
             time: item.time,
             timeToGather: item.timeToGather,
             isPlayed: item.isPlayed,
+            score: item.score,
         };
     }
     

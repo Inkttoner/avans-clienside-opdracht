@@ -20,8 +20,8 @@ export class AdminComponent implements OnInit, OnDestroy {
             opponent: new FormControl('', [Validators.required]),
             isHomeGame: new FormControl('', [Validators.required]),
             fee: new FormControl(0, [Validators.required]),
-            time: new FormControl('', [Validators.required]),
-            timeToGather: new FormControl('', [Validators.required]),
+            time: new FormControl('', [Validators.required, this.isValidTime.bind(this)]),
+            timeToGather: new FormControl('', [Validators.required, this.isValidTime.bind(this)]),
         });
     }
 
@@ -51,5 +51,17 @@ export class AdminComponent implements OnInit, OnDestroy {
         }
         );
         this.router.navigate(['/games']);
+    }
+
+    isValidTime(control: FormControl): { [s: string]: boolean } | null {
+        const time = control.value;
+        const regexp = new RegExp(
+            '^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$'
+        );
+        if (regexp.test(time) !== true) {
+            return { time: false };
+        } else {
+            return null;
+        }
     }
 }
