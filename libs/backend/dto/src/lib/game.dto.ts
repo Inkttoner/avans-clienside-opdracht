@@ -31,7 +31,7 @@ export class CreateGameDto implements ICreateGame {
 
 export class UpdateGameDto implements IGame {
     _id!: Id;
-
+    @Type(()=> Date)
     @IsDate()
     @IsOptional()
     date!: Date;

@@ -9,7 +9,8 @@ import {
     AdminComponent,
     GameDetailComponent,
     ReportDetailComponent,
-    CreateReportComponent
+    CreateReportComponent,
+    GameEditComponent
 } from '@avans-nx-workshop/features';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AboutComponent } from './components/about/about.component';
@@ -43,6 +44,6 @@ export const appRoutes: Route[] = [
     { path: 'games/:id', component: GameDetailComponent },
     { path: 'playedgames/:id', component: ReportDetailComponent },
     { path: 'create-report/:gameId', component: CreateReportComponent },
-
+    { path: 'game-edit/:gameId', component: GameEditComponent },
     { path: '**', redirectTo: 'dashboard' }
 ];

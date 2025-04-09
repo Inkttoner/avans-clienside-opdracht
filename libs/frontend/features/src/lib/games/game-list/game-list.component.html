@@ -65,7 +65,7 @@
                     @else {<td class="px-6 py-4">{{ game.score}}</td>}
                     @if(isAdmin){
                     <td class="px-6 py-4 text-right">
-                        <a
+                        <a (click)="navigateToEditGame(game._id)"
                             class="font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer"
                             >Edit</a
                         >

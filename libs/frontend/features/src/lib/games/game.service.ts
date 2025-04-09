@@ -34,4 +34,11 @@ export class GameService {
           .get<ApiResponse<any>>(`${environment.dataApiUrl}/game/${_id}`)
           .pipe(map((response) => response.results));
     }
+
+    updateGame(gameId: string| undefined, game: IGame): Observable<IGame> {
+        console.log('updateGame aangeroepen');
+        return this.http
+            .put<ApiResponse<any>>(`${environment.dataApiUrl}/game/${game._id}`, game)
+            .pipe(map((response) => response.results));
+    }
 }

@@ -12,3 +12,4 @@ export * from './lib/admin/admin.component';
 export * from './lib/games/game-details/game-detail.component';
 export * from './lib/report/report-detail/report-detail.component'
 export * from './lib/report/create-report/create-report.component';
+export * from './lib/games/game-edit/game-edit.component'

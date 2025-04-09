@@ -13,6 +13,7 @@ import { AdminComponent } from './admin/admin.component';
 import { GameDetailComponent } from './games/game-details/game-detail.component';
 import { ReportDetailComponent } from './report/report-detail/report-detail.component';
 import { CreateReportComponent } from './report/create-report/create-report.component';
+import { GameEditComponent } from './games/game-edit/game-edit.component';
 
 @NgModule({
     imports: [CommonModule, RouterModule, ReactiveFormsModule, FormsModule],
@@ -26,7 +27,8 @@ import { CreateReportComponent } from './report/create-report/create-report.comp
         AdminComponent,
         GameDetailComponent,
         ReportDetailComponent,
-        CreateReportComponent
+        CreateReportComponent,
+        GameEditComponent
     ],
     providers: [LoggedInAuthGuard, UserEditGuard, AdminGuard]
 })

@@ -62,4 +62,8 @@ export class GameListComponent implements OnInit, OnDestroy {
     navigateToPlayersForGame(gameId: string): void {
         this.rout.navigate(['/players'], { queryParams: { gameId: gameId } });
     }
+
+    navigateToEditGame(gameId: string): void {
+        this.rout.navigate(['/game-edit', gameId]);
+    }
 }

@@ -46,7 +46,7 @@ export class ReportService {
             goals: item.goals,
             assists: item.assists,
             rating: item.rating,
-            report: item.report,
+            reportText: item.reportText,
             score: item.score,
             manOfTheMatch: item.manOfTheMatch
         };
