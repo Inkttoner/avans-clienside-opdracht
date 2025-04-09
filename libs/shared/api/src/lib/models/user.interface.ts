@@ -3,10 +3,9 @@ import { IToken, IUserRegistration } from './auth.interface';
 import { Id } from './id.type';
 import { IEntity } from './entity.interface';
 
-export enum UserRole {
-    Player = 'Speler',
-    Supporter = 'Supporter',
-    Unknown = 'Unknown'
+export enum UserRole{
+    Admin = 'Admin',
+    User = 'User',
 }
 
 export enum UserGender {
@@ -21,15 +20,17 @@ export interface IUser extends IEntity {
     password: string;
     emailAddress: string;
     role: UserRole;
-    gender: UserGender;
+    dateOfBirth: Date;
+    token?: string;
+    position?: string;
 }
 
-export interface IUserInfo extends IUser {
-    position: string;
+export interface IPlayer extends IUser {
+    _id: Id;
     goals: number;
     assists: number;
 }
 
-export type ICreateUser = Pick<IUser, 'name' | 'password' | 'emailAddress'>;
+export type ICreateUser = Pick<IUser, 'name' | 'password' | 'emailAddress' | 'dateOfBirth'>;
 export type IUpdateUser = Partial<Omit<IUser, 'id'>>;
-export type IUpsertUser = IUser;
+export type IUpsertUser = IPlayer;

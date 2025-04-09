@@ -1,0 +1,188 @@
+<div
+    class="container mx-auto p-6 bg-white dark:bg-gray-900 rounded-lg shadow-md"
+>
+    <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6">
+        Create Report
+    </h1>
+
+    <h2 class="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-4">
+        Wedstrijd tegen {{ game?.opponent }}
+    </h2>
+
+    <form class="space-y-6">
+        <!-- Score -->
+        <div>
+            <label
+                for="score"
+                class="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                >Score</label
+            >
+            <div class="flex items-center space-x-2">
+                <!-- Home Team Score -->
+                <input
+                    type="number"
+                    id="homeScore"
+                    name="homeScore"
+                    min="0"
+                    class="mt-1 block w-16 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200 text-center"
+                    placeholder="0"
+                />
+
+                <span class="text-gray-700 dark:text-gray-300">-</span>
+
+                <!-- Away Team Score -->
+                <input
+                    type="number"
+                    id="awayScore"
+                    name="awayScore"
+                    min="0"
+                    class="mt-1 block w-16 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200 text-center"
+                    placeholder="0"
+                />
+            </div>
+        </div>
+
+        <!-- Report -->
+        <div>
+            <label
+                for="report"
+                class="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                >Report</label
+            >
+            <textarea
+                id="report"
+                name="report"
+                rows="4"
+                class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200"
+                placeholder="Enter match report"
+            ></textarea>
+        </div>
+
+        <!-- Man of the Match -->
+        <div>
+            <label
+                for="manOfTheMatch"
+                class="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                >Man of the Match</label
+            >
+            <select
+                id="manOfTheMatch"
+                name="manOfTheMatch"
+                class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200"
+            >
+                <option value="" disabled selected>Select a player</option>
+                <option
+                    *ngFor="let player of report!.players"
+                    [value]="player._id"
+                >
+                    {{ player.name }}
+                </option>
+            </select>
+        </div>
+
+       <!-- Goals -->
+<div>
+    <label
+        for="goals"
+        class="block text-sm font-medium text-gray-700 dark:text-gray-300"
+        >Goals</label
+    >
+    <div class="space-y-4">
+        <div *ngFor="let goal of goals; let i = index" class="flex items-center space-x-4">
+            <select
+                id="goalPlayer{{ i }}"
+                name="goalPlayer{{ i }}"
+                class="block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200"
+                [(ngModel)]="goal.player"
+            >
+                <option value="" disabled>Select a player</option>
+                <option *ngFor="let player of report?.players" [value]="player._id">
+                    {{ player.name }}
+                </option>
+            </select>
+            <button
+                type="button"
+                class="bg-red-500 text-white px-3 py-1 rounded-md shadow-sm hover:bg-red-600"
+                (click)="removeGoal(i)"
+            >
+                Remove
+            </button>
+        </div>
+        <button
+            type="button"
+            class="bg-blue-500 text-white px-4 py-2 rounded-md shadow-sm hover:bg-blue-600"
+            (click)="addGoal()"
+        >
+            Add Goal
+        </button>
+    </div>
+</div>
+
+<!-- Assists -->
+<div>
+    <label
+        for="assists"
+        class="block text-sm font-medium text-gray-700 dark:text-gray-300"
+        >Assists</label
+    >
+    <div class="space-y-4">
+        <div *ngFor="let assist of assists; let i = index" class="flex items-center space-x-4">
+            <select
+                id="assistPlayer{{ i }}"
+                name="assistPlayer{{ i }}"
+                class="block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200"
+                [(ngModel)]="assist.player"
+            >
+                <option value="" disabled>Select a player</option>
+                <option *ngFor="let player of report?.players" [value]="player._id">
+                    {{ player.name }}
+                </option>
+            </select>
+            <button
+                type="button"
+                class="bg-red-500 text-white px-3 py-1 rounded-md shadow-sm hover:bg-red-600"
+                (click)="removeAssist(i)"
+            >
+                Remove
+            </button>
+        </div>
+        <button
+            type="button"
+            class="bg-blue-500 text-white px-4 py-2 rounded-md shadow-sm hover:bg-blue-600"
+            (click)="addAssist()"
+        >
+            Add Assist
+        </button>
+    </div>
+</div>
+
+        <!-- Rating -->
+        <div>
+            <label
+                for="rating"
+                class="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                >Rating</label
+            >
+            <input
+                type="number"
+                id="rating"
+                name="rating"
+                step="0.1"
+                min="0"
+                max="10"
+                class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200"
+                placeholder="Enter rating (0-10)"
+            />
+        </div>
+
+        <!-- Submit Button -->
+        <div>
+            <button
+                type="submit"
+                class="w-full bg-blue-600 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            >
+                Submit Report
+            </button>
+        </div>
+    </form>
+</div>

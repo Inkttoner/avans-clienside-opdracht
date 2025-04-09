@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { UsersModule } from '@avans-nx-workshop/backend/user';
+import { GamesModule, ReportsModule} from '@avans-nx-workshop/backend/features';
 import { AuthModule } from '@avans-nx-workshop/backend/auth';
 import { MongooseModule } from '@nestjs/mongoose';
 import { environment } from '@avans-nx-workshop/shared/util-env';
@@ -22,7 +23,9 @@ import { AppController } from './app.controller';
                 return connection;
             }
         }),
-        UsersModule
+        UsersModule,
+        GamesModule,
+        ReportsModule
     ],
     controllers: [AppController],
     providers: [AppService]

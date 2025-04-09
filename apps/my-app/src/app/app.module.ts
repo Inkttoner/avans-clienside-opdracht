@@ -7,8 +7,10 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AboutComponent } from './components/about/about.component';
 import { FooterComponent } from './components/ui/footer/footer.component';
 import { HeaderComponent } from './components/ui/header/header.component';
-import {FeaturesModule} from '@avans-nx-workshop/features'
+import { FeaturesModule } from '@avans-nx-workshop/features';
 import { HttpClientModule } from '@angular/common/http';
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -16,7 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
         DashboardComponent,
         AboutComponent,
         FooterComponent,
-        HeaderComponent
+        HeaderComponent,
     ],
     imports: [
         BrowserModule,
@@ -24,9 +26,11 @@ import { HttpClientModule } from '@angular/common/http';
             initialNavigation: 'enabledBlocking'
         }),
         FeaturesModule,
-        HttpClientModule
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule
     ],
     providers: [],
-    bootstrap: [AppComponent]   
+    bootstrap: [AppComponent]
 })
 export class AppModule {}

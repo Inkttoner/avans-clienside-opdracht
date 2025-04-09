@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsBoolean, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsString, IsBoolean, IsOptional, IsDate, IsDateString } from 'class-validator';
 import {
     // ICreateUser,
     IUpdateUser,
@@ -6,7 +6,7 @@ import {
     IUserRegistration,
     Id,
     UserGender,
-    UserRole
+    UserRole,
 } from '@avans-nx-workshop/shared/api';
 
 export class CreateUserDto implements IUserRegistration {
@@ -21,6 +21,11 @@ export class CreateUserDto implements IUserRegistration {
     @IsString()
     @IsNotEmpty()
     emailAddress!: string;
+
+    @IsDateString()
+    @IsNotEmpty()
+    dateOfBirth!: Date;
+
 }
 
 export class UpsertUserDto implements IUpsertUser {
@@ -40,15 +45,18 @@ export class UpsertUserDto implements IUpsertUser {
 
     @IsString()
     @IsNotEmpty()
-    role: UserRole = UserRole.Unknown;
-
-    @IsString()
-    @IsNotEmpty()
-    gender: UserGender = UserGender.Unknown;
+    role: UserRole = UserRole.User;
 
     @IsString()
     @IsNotEmpty()
     position = '';
+
+    @IsDate()
+    @IsNotEmpty()
+    dateOfBirth!: Date;
+
+    goals = 0;
+    assists = 0;
 }
 
 export class UpdateUserDto implements IUpdateUser {

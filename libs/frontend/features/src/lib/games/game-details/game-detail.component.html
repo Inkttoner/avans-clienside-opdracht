@@ -1,0 +1,33 @@
+<div class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-md">
+        <div class="text-center mb-6">
+            <h1 class="text-2xl font-bold text-gray-800">Wedstrijd details</h1>
+        </div>
+        <div class="mb-4">
+            <h2 class="text-xl font-semibold text-gray-700">Tegenstander</h2>
+            <p class="text-gray-600">{{ game?.opponent }}</p>
+        </div>
+        <div class="mb-4">
+            <h2 class="text-xl font-semibold text-gray-700">Tijd</h2>
+            <p class="text-gray-600">{{ game?.time }}</p>
+        </div>
+        <div class="mb-4">
+            <h2 class="text-xl font-semibold text-gray-700">Spelers</h2>
+            <ul class="list-disc list-inside text-gray-600">
+                <li *ngFor="let player of game?.players">{{ player }}</li>
+            </ul>
+        </div>
+        <div class="mb-4">
+            <h2 class="text-xl font-semibold text-gray-700">Vergoeding</h2>
+            <p class="text-gray-600">{{ game?.fee }}</p>
+        </div>
+        <div class="mb-4">
+            <h2 class="text-xl font-semibold text-gray-700">Locatie</h2>
+            @if(game?.isHomeGame){
+            <p class="text-gray-600">Thuis</p>
+            } @else {
+            <p class="text-gray-600">Uit</p>
+            }
+        </div>
+    </div>
+</div>

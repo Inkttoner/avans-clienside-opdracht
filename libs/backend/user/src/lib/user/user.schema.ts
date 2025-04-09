@@ -4,8 +4,7 @@ import { Document, Schema as MongooseSchema } from 'mongoose';
 import isEmail from 'validator/lib/isEmail';
 import {
     IUser,
-    UserGender,
-    UserRole
+    UserRole,
 } from '@avans-nx-workshop/shared/api';
 import { IsMongoId } from 'class-validator';
 
@@ -15,6 +14,12 @@ export type UserDocument = User & Document;
 export class User implements IUser {
     @IsMongoId()
     _id!: string;
+
+    @Prop({
+        required: false,
+        type: Date
+    })
+    dateOfBirth!: Date;
 
     @Prop({
         required: true,
@@ -44,23 +49,9 @@ export class User implements IUser {
     @Prop({
         required: false,
         type: String,
-        default: UserRole.Unknown
+        default: UserRole.User
     })
-    role: UserRole = UserRole.Unknown;
-
-    @Prop({
-        required: false,
-        type: String,
-        default: UserGender.Unknown
-    })
-    gender: UserGender = UserGender.Unknown;
-
-    @Prop({
-        required: false,
-        type: Boolean,
-        default: true
-    })
-    isActive = true;
+    role: UserRole = UserRole.User;
 
     @Prop({
         required: false,
@@ -69,6 +60,19 @@ export class User implements IUser {
     })
     position = '';
 
+    @Prop({
+        required: false,
+        type: Number,
+        default: 0
+    })
+    goals = 0;
+
+    @Prop({
+        required: false,
+        type: Number,
+        default: 0
+    })
+    assists = 0;
 
 }
 

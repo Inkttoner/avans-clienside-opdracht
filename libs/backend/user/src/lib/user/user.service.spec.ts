@@ -7,14 +7,14 @@ import { MongoClient } from 'mongodb';
 
 import { UserService } from './user.service';
 import { User, UserDocument, UserSchema } from './user.schema';
-import { Meetup, MeetupDocument, MeetupSchema } from '../meetup/meetup.schema';
+
 
 describe('UserService', () => {
   let service: UserService;
   let mongod: MongoMemoryServer;
   let mongoc: MongoClient;
   let userModel: Model<UserDocument>;
-  let meetupModel: Model<MeetupDocument>;
+
 
   const testMeetups = [{
     topic: 'math',
