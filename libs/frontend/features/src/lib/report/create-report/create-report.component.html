@@ -65,46 +65,96 @@
                 class="block text-sm font-medium text-gray-700 dark:text-gray-300"
                 >Man of the Match</label
             >
-            <input
-                type="text"
+            <select
                 id="manOfTheMatch"
                 name="manOfTheMatch"
                 class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200"
-                placeholder="Enter name of Man of the Match"
-            />
+            >
+                <option value="" disabled selected>Select a player</option>
+                <option
+                    *ngFor="let player of report!.players"
+                    [value]="player._id"
+                >
+                    {{ player.name }}
+                </option>
+            </select>
         </div>
 
-        <!-- Goals -->
-        <div>
-            <label
-                for="goals"
-                class="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                >Goals</label
+       <!-- Goals -->
+<div>
+    <label
+        for="goals"
+        class="block text-sm font-medium text-gray-700 dark:text-gray-300"
+        >Goals</label
+    >
+    <div class="space-y-4">
+        <div *ngFor="let goal of goals; let i = index" class="flex items-center space-x-4">
+            <select
+                id="goalPlayer{{ i }}"
+                name="goalPlayer{{ i }}"
+                class="block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200"
+                [(ngModel)]="goal.player"
             >
-            <input
-                type="number"
-                id="goals"
-                name="goals"
-                class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200"
-                placeholder="Enter number of goals"
-            />
+                <option value="" disabled>Select a player</option>
+                <option *ngFor="let player of report?.players" [value]="player._id">
+                    {{ player.name }}
+                </option>
+            </select>
+            <button
+                type="button"
+                class="bg-red-500 text-white px-3 py-1 rounded-md shadow-sm hover:bg-red-600"
+                (click)="removeGoal(i)"
+            >
+                Remove
+            </button>
         </div>
+        <button
+            type="button"
+            class="bg-blue-500 text-white px-4 py-2 rounded-md shadow-sm hover:bg-blue-600"
+            (click)="addGoal()"
+        >
+            Add Goal
+        </button>
+    </div>
+</div>
 
-        <!-- Assists -->
-        <div>
-            <label
-                for="assists"
-                class="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                >Assists</label
+<!-- Assists -->
+<div>
+    <label
+        for="assists"
+        class="block text-sm font-medium text-gray-700 dark:text-gray-300"
+        >Assists</label
+    >
+    <div class="space-y-4">
+        <div *ngFor="let assist of assists; let i = index" class="flex items-center space-x-4">
+            <select
+                id="assistPlayer{{ i }}"
+                name="assistPlayer{{ i }}"
+                class="block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200"
+                [(ngModel)]="assist.player"
             >
-            <input
-                type="number"
-                id="assists"
-                name="assists"
-                class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200"
-                placeholder="Enter number of assists"
-            />
+                <option value="" disabled>Select a player</option>
+                <option *ngFor="let player of report?.players" [value]="player._id">
+                    {{ player.name }}
+                </option>
+            </select>
+            <button
+                type="button"
+                class="bg-red-500 text-white px-3 py-1 rounded-md shadow-sm hover:bg-red-600"
+                (click)="removeAssist(i)"
+            >
+                Remove
+            </button>
         </div>
+        <button
+            type="button"
+            class="bg-blue-500 text-white px-4 py-2 rounded-md shadow-sm hover:bg-blue-600"
+            (click)="addAssist()"
+        >
+            Add Assist
+        </button>
+    </div>
+</div>
 
         <!-- Rating -->
         <div>

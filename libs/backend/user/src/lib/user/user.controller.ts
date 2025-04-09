@@ -26,6 +26,11 @@ export class UserController {
     async findOne(@Param('id') id: string): Promise<IUser | null> {
         return this.userService.findOne(id);
     }
+    
+    @Get('game/players/:gameId')
+    async findAllForGame(@Param('gameId') gameId: string): Promise<IPlayer[]> {
+        return this.userService.findAllForGame(gameId);
+    }
 
     @Post('')
     @UseGuards(UserExistGuard)

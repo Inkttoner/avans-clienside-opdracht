@@ -9,7 +9,7 @@
 } @else {
     <div class="container mx-auto p-6 bg-white dark:bg-gray-900 rounded-lg shadow-md">
         <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-4">
-            Trinitas Zaterdag 3 - {{report.game.opponent}}
+            Trinitas Zaterdag 3 - {{game?.opponent}}
         </h1>
         <h2 class="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-6">
             Wedstrijd Details
@@ -19,7 +19,7 @@
                 Score: <span class="font-bold">{{report.score}}</span>
             </h3>
             <p class="text-gray-600 dark:text-gray-400 mt-2">
-                {{report.report}}
+                {{report.reportText}}
             </p>
             <p class="text-gray-600 dark:text-gray-400 mt-2">
                 <span class="font-semibold">Man of the Match:</span> {{report.manOfTheMatch}}

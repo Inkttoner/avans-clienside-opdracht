@@ -1,10 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { IReport } from '@avans-nx-workshop/shared/api';
+import { IGame, IReport } from '@avans-nx-workshop/shared/api';
 import { Subscription } from 'rxjs';
 import { ReportService } from '../report.service';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
+import { GameService } from '../../games/game.service';
+import { UserService } from '../../users/user.sevice';
 
 
 @Component({
@@ -15,15 +17,17 @@ import { AuthService } from '../../auth/auth.service';
 export class ReportDetailComponent implements OnInit, OnDestroy {
     report?: IReport
     subscription?: Subscription;
-    isAdmin = false;    
+    isAdmin = false; 
+    game?: IGame;   
 
-    constructor(private reportService: ReportService, private route: ActivatedRoute, private router: Router, private auth: AuthService){
+    constructor(private userService: UserService ,private reportService: ReportService, private route: ActivatedRoute, private router: Router, private auth: AuthService, private gameService: GameService){
        
     }
 
     ngOnInit(): void {
        this.route.paramMap.subscribe((params) => {
         const gameId = params.get('id');
+
         this.subscription = this.reportService.getReportById(String(gameId)).subscribe((report) => {
             this.report = report;
 
@@ -45,6 +49,9 @@ export class ReportDetailComponent implements OnInit, OnDestroy {
        });
       
     }
+
+
+
     ngOnDestroy(): void {
        this.subscription?.unsubscribe();
     }

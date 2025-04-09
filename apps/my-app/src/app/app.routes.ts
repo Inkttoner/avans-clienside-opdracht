@@ -42,7 +42,7 @@ export const appRoutes: Route[] = [
     { path: 'admin', canActivate: [AdminGuard], component: AdminComponent },
     { path: 'games/:id', component: GameDetailComponent },
     { path: 'playedgames/:id', component: ReportDetailComponent },
-    { path: 'create-report/:id', component: CreateReportComponent },
+    { path: 'create-report/:gameId', component: CreateReportComponent },
 
     { path: '**', redirectTo: 'dashboard' }
 ];

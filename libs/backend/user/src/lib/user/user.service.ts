@@ -20,6 +20,12 @@ export class UserService {
         return items.map((item) => this.mapToUserInfo(item));
     }
 
+    async findAllForGame(gameId: string): Promise<IPlayer[]> {
+        this.logger.log(`Finding all items for game ${gameId}`);
+        const items = await this.userModel.find({ gameId });
+        return items.map((item) => this.mapToUserInfo(item));
+    }
+
     async findOne(_id: string): Promise<IPlayer | null> {
         this.logger.log(`finding user with id ${_id}`);
         const item = await this.userModel.findOne({ _id }).exec();

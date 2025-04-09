@@ -8,14 +8,14 @@ import { RouterModule } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { RegistrationComponent } from './auth/registration/registration.component';
 import { AdminGuard, LoggedInAuthGuard, UserEditGuard } from './auth/auth.guard';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AdminComponent } from './admin/admin.component';
 import { GameDetailComponent } from './games/game-details/game-detail.component';
 import { ReportDetailComponent } from './report/report-detail/report-detail.component';
 import { CreateReportComponent } from './report/create-report/create-report.component';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, ReactiveFormsModule],
+    imports: [CommonModule, RouterModule, ReactiveFormsModule, FormsModule],
     declarations: [
         UserDetailsComponent,
         UserListComponent,

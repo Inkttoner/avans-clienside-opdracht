@@ -20,10 +20,10 @@ export class UserService {
 
  
 
-    getPlayersForGameAsync(_id: string): Observable<IPlayer[]> {
+    getPlayersForGameAsync(gameId: string): Observable<IPlayer[]> {
         console.log('getPlayersForGameAsync aangeroepen');
         return this.http
-            .get<ApiResponse<any>>(`${environment.dataApiUrl}/game/players/${_id}`)
+            .get<ApiResponse<any>>(`${environment.dataApiUrl}/game/players/${gameId}`)
             .pipe(map((response) => response.results));
     }
 

@@ -6,7 +6,7 @@ export class CreateReportDto implements ICreateReport {
 
     @IsString()
     @IsNotEmpty()
-    game!: IGame;
+    game!: string;
 
     @IsString()
     @IsNotEmpty()

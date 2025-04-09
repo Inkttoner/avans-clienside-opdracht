@@ -20,7 +20,7 @@ export type ReportDocument = Report & Document;
         type: MongooseSchema.Types.ObjectId,
         ref: 'Game'
     })
-    game!: IGame;
+    game!: string;
 
     @Prop({
         required: true,
@@ -70,7 +70,7 @@ export type ReportDocument = Report & Document;
         required: true,
         type: String
     })
-    report!: string;
+    reportText!: string;
      
 }
 
