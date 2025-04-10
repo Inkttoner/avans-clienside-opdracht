@@ -22,8 +22,9 @@ export class ReportService {
     
     async findForGame(game: IGame): Promise<IReport| null> {
         this.logger.log(`Finding report for game`);
-        var game_id = game._id;
-        const item = await this.reportModel.findOne({game_id}).exec();
+        const game_id = game._id;
+        console.log('game_id', game_id);
+        const item = await this.reportModel.findOne({game: game_id}).exec();
         return item;
     }
 
@@ -37,6 +38,7 @@ export class ReportService {
         this.logger.log(`Update report ${_id}`);
         return this.reportModel.findByIdAndUpdate({_id}, report);
     }
+
 
     private mapToReport(item: ReportDocument): IReport {
         return {

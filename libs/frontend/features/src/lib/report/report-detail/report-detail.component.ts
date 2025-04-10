@@ -28,9 +28,13 @@ export class ReportDetailComponent implements OnInit, OnDestroy {
        this.route.paramMap.subscribe((params) => {
         const gameId = params.get('id');
 
-        this.subscription = this.reportService.getReportById(String(gameId)).subscribe((report) => {
+
+        this.subscription = this.reportService.getReportByGameId(String(gameId)).subscribe((report) => {
             this.report = report;
 
+            this.gameService.getGameById(String(gameId)).subscribe((game) => {
+                this.game = game;
+            });
             if (!this.report) {
                 console.log('Report not found');
                this.auth.isUserAdmin().subscribe((isAdmin) => {

@@ -1,25 +1,43 @@
-import { IsNotEmpty, IsString, IsBoolean, IsOptional, IsNumber, IsDate } from 'class-validator';
-import { ICreateGame, IGame, Id,IUser, ICreateReport } from '@avans-nx-workshop/shared/api';
-
+import {
+    IsNotEmpty,
+    IsString,
+    IsBoolean,
+    IsOptional,
+    IsNumber,
+    IsDate,
+    IsMongoId,
+    IsArray
+} from 'class-validator';
+import {
+    ICreateGame,
+    IGame,
+    Id,
+    IUser,
+    ICreateReport
+} from '@avans-nx-workshop/shared/api';
 
 export class CreateReportDto implements ICreateReport {
-
-    @IsString()
+    @IsMongoId()
     @IsNotEmpty()
     game!: string;
 
     @IsString()
     @IsNotEmpty()
-    manOfTheMatch!: IUser;
+    manOfTheMatch!: string;
 
+    @IsArray()
     @IsOptional()
-    players: IUser[] = [];
+    players!: IUser[];
 
+    @IsArray()
     @IsOptional()
-    goals: IUser[] = [];
+    @IsString({ each: true })
+    goals!: string[];
 
+    @IsArray()
     @IsOptional()
-    assists: IUser[] = [];
+    @IsString({ each: true })
+    assists!: string[];
 
     @IsString()
     @IsNotEmpty()
@@ -31,5 +49,5 @@ export class CreateReportDto implements ICreateReport {
 
     @IsString()
     @IsNotEmpty()
-    report!: string;
+    reportText!: string;
 }

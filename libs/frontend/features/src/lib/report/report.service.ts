@@ -21,15 +21,15 @@ export class ReportService {
     }
 
 
-    getReportById(_id: string): Observable<IReport>{
-        console.log('getReportById aangeroepen');
+    getReportByGameId(gameId: string): Observable<IReport>{
+        console.log('getReportById aangeroepen', gameId);
         return this.http
-            .get<ApiResponse<any>>(`${environment.dataApiUrl}/report/${_id}`)
+            .get<ApiResponse<any>>(`${environment.dataApiUrl}/report/${gameId}`)
             .pipe(map((response) => response.results));
       }
 
     createReport(report: ICreateReport): Observable<ICreateReport> {
-        console.log('createReport aangeroepen');
+        console.log('createReport aangeroepen', report);
         return this.http
             .post<ApiResponse<any>>(`${environment.dataApiUrl}/report`, report)
             .pipe(map((response) => response.results));

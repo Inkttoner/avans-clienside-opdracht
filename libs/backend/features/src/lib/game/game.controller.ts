@@ -2,6 +2,7 @@ import {
     Body,
     Controller,
     Get,
+    HttpException,
     Param,
     Post,
     Put,
@@ -33,6 +34,17 @@ export class GameController {
     @Post('')
     create(@Body() game: CreateGameDto): Promise<IGame> {
         return this.gameService.create(game);
+    }
+
+    @Put('addPlayer/:id')
+    addPlayerToGame(
+        @Param('id') id: string,
+        @Body('player') player: IPlayer
+    ): Promise<IGame | null> {
+        if (!player) {
+            throw new HttpException('Player not found', 404);
+        }
+        return this.gameService.addPlayerToGame(id, player);
     }
 
     @Put(':id')

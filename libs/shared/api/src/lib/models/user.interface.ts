@@ -23,12 +23,12 @@ export interface IUser extends IEntity {
     dateOfBirth: Date;
     token?: string;
     position?: string;
+    goals: number;
+    assists: number;
 }
 
 export interface IPlayer extends IUser {
-    _id: Id;
-    goals: number;
-    assists: number;
+    
 }
 
 export type ICreateUser = Pick<IUser, 'name' | 'password' | 'emailAddress' | 'dateOfBirth'>;

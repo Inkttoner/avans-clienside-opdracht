@@ -28,6 +28,18 @@ export class GameService {
         return item;
     }
 
+    async addPlayerToGame(_id: string, player: IPlayer): Promise<IGame | null> {
+        this.logger.log(`Adding player ${player._id} to game ${_id}`);
+        const game = await this.gameModel.findById(_id);
+        if (!game) {
+            this.logger.debug('Game not found');
+            throw new HttpException('Game not found', 404);
+        }
+        game.players.push(player);
+        await game.save();
+        return this.mapToGame(game);
+    }
+
     
     async getPlayersFromGame(_id: string): Promise<IPlayer[] | null> {
         this.logger.log(`Getting players from game with id ${_id}`);

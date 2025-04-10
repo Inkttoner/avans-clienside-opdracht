@@ -7,6 +7,7 @@ import {
    IPlayer,
 } from '@avans-nx-workshop/shared/api';
 import { IsMongoId } from 'class-validator';
+import {UserSchema} from '../../../../user/src/lib/user/user.schema';
 
 export type GameDocument = Game & Document;
  @Schema() export class Game implements IGame {
@@ -53,7 +54,7 @@ export type GameDocument = Game & Document;
 
     @Prop({
         required: false,
-        type: [String],
+        type: [UserSchema],
         default: []
     })
     players: IPlayer[] = [];

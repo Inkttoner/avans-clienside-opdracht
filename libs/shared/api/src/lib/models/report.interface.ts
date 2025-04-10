@@ -5,10 +5,10 @@ import { IUser } from "./user.interface";
 
 export interface IReport extends IEntity {
     game : string;
-    manOfTheMatch : IUser;
+    manOfTheMatch : String;
     players : IUser[];
-    goals : IUser[];
-    assists : IUser[];
+    goals : string[];
+    assists : string[];
     score : string;
     rating : number;
     reportText : string;

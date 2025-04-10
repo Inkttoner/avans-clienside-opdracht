@@ -2,16 +2,13 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
 // import { v4 as uuid } from 'uuid';
 import isEmail from 'validator/lib/isEmail';
-import {
-   IGame,
-   IUser,
-   IReport
-} from '@avans-nx-workshop/shared/api';
+import { IGame, IUser, IReport } from '@avans-nx-workshop/shared/api';
 import { IsMongoId } from 'class-validator';
+import { UserSchema } from 'libs/backend/user/src/lib/user/user.schema';
 
 export type ReportDocument = Report & Document;
- @Schema() export class Report implements IReport {
-     
+@Schema()
+export class Report implements IReport {
     @IsMongoId()
     _id!: string;
 
@@ -24,14 +21,14 @@ export type ReportDocument = Report & Document;
 
     @Prop({
         required: true,
-        type: MongooseSchema.Types.ObjectId,
+        type: String,
         ref: 'User'
     })
-    manOfTheMatch!: IUser;
+    manOfTheMatch!: String;
 
     @Prop({
         required: false,
-        type: [MongooseSchema.Types.ObjectId],
+        type: [UserSchema],
         ref: 'User',
         default: []
     })
@@ -39,19 +36,19 @@ export type ReportDocument = Report & Document;
 
     @Prop({
         required: false,
-        type: [MongooseSchema.Types.ObjectId],
+        type: [String],
         ref: 'User',
         default: []
     })
-    goals: IUser[] = [];
+    goals: string[] = [];
 
     @Prop({
         required: false,
-        type: [MongooseSchema.Types.ObjectId],
+        type: [String],
         ref: 'User',
         default: []
     })
-    assists: IUser[] = [];
+    assists: string[] = [];
 
     @Prop({
         required: true,
@@ -71,7 +68,6 @@ export type ReportDocument = Report & Document;
         type: String
     })
     reportText!: string;
-     
 }
 
 export const ReportSchema = SchemaFactory.createForClass(Report);

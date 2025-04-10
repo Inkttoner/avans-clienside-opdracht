@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable, of, delay, map } from 'rxjs';
 import {
     IGame,
-    ApiResponse
+    ApiResponse,
+    IPlayer
 } from '@avans-nx-workshop/shared/api';
 import { environment } from '@avans-nx-workshop/shared/util-env';
 import { HttpClient } from '@angular/common/http';
@@ -33,6 +34,13 @@ export class GameService {
       return this.http
           .get<ApiResponse<any>>(`${environment.dataApiUrl}/game/${_id}`)
           .pipe(map((response) => response.results));
+    }
+
+    addPlayerToGame(gameId: string, player: IPlayer): Observable<IGame> {
+        console.log('addPlayerToGame aangeroepen' , player);
+        return this.http
+            .put<ApiResponse<any>>(`${environment.dataApiUrl}/game/addPlayer/${gameId}`, { player })
+            .pipe(map((response) => response.results));
     }
 
     updateGame(gameId: string| undefined, game: IGame): Observable<IGame> {

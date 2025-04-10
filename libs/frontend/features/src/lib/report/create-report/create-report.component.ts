@@ -13,16 +13,17 @@ import { UserService } from '../../users/user.sevice';
 })
 export class CreateReportComponent implements OnInit, OnDestroy {
     report?: ICreateReport;
+    players: IPlayer[] = [];
     player?: IPlayer;
     game?: IGame;
     subscription?: Subscription;
-    goals: { player: IPlayer }[] = [];
-    assists: { player: IPlayer }[] = [];
+    goals: { player: string }[] = [];
+    assists: { player: string }[] = [];
     homeScore: number = 0;
     awayScore: number = 0;
     rating: number = 0;
     reportText: string = '';
-    manOfTheMatch!: IPlayer;
+    manOfTheMatch: string = '';	
 
     constructor(
         private reportService: ReportService,
@@ -42,8 +43,8 @@ export class CreateReportComponent implements OnInit, OnDestroy {
             this.userService
                 .getPlayersForGameAsync(gameId)
                 .subscribe((players) => {
-                    console.log(gameId, 'called get players for game ');
-                    this.report!.players = players;
+                    console.log(players, 'players for game ' + gameId);
+                    this.players = players;
                 });
         });
     }
@@ -53,7 +54,7 @@ export class CreateReportComponent implements OnInit, OnDestroy {
     }
 
     addGoal(): void {
-        this.goals.push({ player: {} as IPlayer });
+        this.goals.push({ player: ''});
     }
 
     removeGoal(index: number): void {
@@ -61,7 +62,7 @@ export class CreateReportComponent implements OnInit, OnDestroy {
     }
 
     addAssist(): void {
-        this.assists.push({ player: {} as IPlayer });
+        this.assists.push({ player: '' });
     }
 
     removeAssist(index: number): void {
@@ -70,10 +71,13 @@ export class CreateReportComponent implements OnInit, OnDestroy {
 
     submitReport(): void{
         const formattedScore = `${this.homeScore}-${this.awayScore}`;
+        console.log(this.goals, 'goals');
+        console.log(this.assists, 'assists');
+        console.log(this.manOfTheMatch, 'manOfTheMatch');
         const reportData: ICreateReport = {
             game: this.game!._id,
             manOfTheMatch: this.manOfTheMatch,
-            players: this.report!.players,
+            players: this.players,
             goals: this.goals.map((goal) => goal.player),
             assists: this.assists.map((assist) => assist.player),
             score: formattedScore,
