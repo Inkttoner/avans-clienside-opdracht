@@ -35,9 +35,20 @@ export class ReportController {
     }
 
     @Post('')
-    create(@Body() report: CreateReportDto): Promise<IReport> {
-        console.log('create aangeroepen', report);
-        return this.reportService.create(report);
+    async create(@Body() report: CreateReportDto): Promise<IReport> {
+        // Create the report
+        const createdReport = await this.reportService.create(report);
+    
+        // Update the associated game to reference the report
+        const game = await this.gameService.findOne(report.game);
+        if (!game) {
+            throw new NotFoundException(`Game with ID ${report.game} not found`);
+        }
+    
+        game.report = createdReport._id; // Associate the report with the game
+        await this.gameService.update(game._id, game);
+    
+        return createdReport;
     }
 
     @Put(':id')

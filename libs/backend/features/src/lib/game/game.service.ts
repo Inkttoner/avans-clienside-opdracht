@@ -20,12 +20,13 @@ export class GameService {
     }
 
     async findOne(_id: string): Promise<IGame | null> {
-        this.logger.log(`finding game with id ${_id}`);
-        const item = await this.gameModel.findOne({ _id }).exec();
-        if (!item) {
-            this.logger.debug('Item not found');
+        this.logger.log(`Finding game with id ${_id}`);
+        const game = await this.gameModel.findOne({ _id }).populate('report').exec();
+        if (!game) {
+            this.logger.debug('Game not found');
+            return null;
         }
-        return item;
+        return this.mapToGame(game);
     }
 
     async addPlayerToGame(_id: string, player: IPlayer): Promise<IGame | null> {
@@ -57,11 +58,15 @@ export class GameService {
         return createdItem;
     }
 
-    async update(_id: string, game: UpdateGameDto): Promise<IGame | null> {
-        this.logger.log(`Update user ${game.opponent}`);
-        return this.gameModel.findByIdAndUpdate({ _id }, game);
+    async update(_id: string, game: Partial<IGame>): Promise<IGame | null> {
+        this.logger.log(`Updating game with ID ${_id}`);
+        const updatedGame = await this.gameModel.findByIdAndUpdate(_id, game, { new: true }).exec();
+        if (!updatedGame) {
+            this.logger.debug('Game not found');
+            return null;
+        }
+        return this.mapToGame(updatedGame);
     }
-
 
     private mapToGame(item: GameDocument): IGame {
         return {
@@ -75,6 +80,7 @@ export class GameService {
             timeToGather: item.timeToGather,
             isPlayed: item.isPlayed,
             score: item.score,
+            report: item.report,
         };
     }
     

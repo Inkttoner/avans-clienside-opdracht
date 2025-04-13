@@ -24,7 +24,7 @@ export class ReportService {
     getReportByGameId(gameId: string): Observable<IReport>{
         console.log('getReportById aangeroepen', gameId);
         return this.http
-            .get<ApiResponse<any>>(`${environment.dataApiUrl}/report/${gameId}`)
+            .get<ApiResponse<any>>(`${environment.dataApiUrl}/game/${gameId}/report`)
             .pipe(map((response) => response.results));
       }
 

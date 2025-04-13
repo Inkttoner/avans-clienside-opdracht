@@ -9,12 +9,13 @@ import {
     UseGuards
 } from '@nestjs/common';
 import { GameService } from './game.service';
-import { IGame, IPlayer } from '@avans-nx-workshop/shared/api';
+import { IGame, IPlayer, IReport } from '@avans-nx-workshop/shared/api';
 import { CreateGameDto, UpdateGameDto } from '@avans-nx-workshop/backend/dto';
+import { ReportService } from '../report/report.service';
 
 @Controller('game')
 export class GameController {
-    constructor(private readonly gameService: GameService) {}
+    constructor(private readonly gameService: GameService, private readonly reportService: ReportService) {}
 
     @Get()
     async findAll(): Promise<IGame[]> {
@@ -34,6 +35,20 @@ export class GameController {
     @Post('')
     create(@Body() game: CreateGameDto): Promise<IGame> {
         return this.gameService.create(game);
+    }
+
+    @Get(':id/report')
+    async getReportForGame(@Param('id') id: string): Promise<IReport | null> {
+        const game = await this.gameService.findOne(id);
+        if (!game || !game.report) {
+            throw new HttpException('Report not found', 404);
+        }
+        const report = await this.reportService.findById(game.report);
+        if (!report) {
+            throw new HttpException('Report not found', 404);
+        }
+    
+        return report;
     }
 
     @Put('addPlayer/:id')

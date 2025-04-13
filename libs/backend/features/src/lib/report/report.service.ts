@@ -29,22 +29,31 @@ export class ReportService {
     }
 
     async create(report: CreateReportDto): Promise<IReport> {
-        this.logger.log(`Create report ${report.game}`);
-        const createdItem = this.reportModel.create(report);
-        return createdItem;
+        this.logger.log(`Creating report for game ${report.game}`);
+        const createdItem = await this.reportModel.create(report);
+        return this.mapToReport(createdItem);
     }
 
     async update(_id: string, report: UpdateGameDto): Promise<IReport | null> {
         this.logger.log(`Update report ${_id}`);
         return this.reportModel.findByIdAndUpdate({_id}, report);
     }
+    
+    async findById(_id: string): Promise<IReport | null> {
+        this.logger.log(`Finding report with id ${_id}`);
+        const report = await this.reportModel.findById(_id).exec();
+        if (!report) {
+            this.logger.debug('Report not found');
+            return null;
+        }
+        return this.mapToReport(report);
+    }
 
 
     private mapToReport(item: ReportDocument): IReport {
         return {
-            _id: item._id,
             game: item.game,
-            players: item.players,
+            _id: item._id,
             goals: item.goals,
             assists: item.assists,
             rating: item.rating,

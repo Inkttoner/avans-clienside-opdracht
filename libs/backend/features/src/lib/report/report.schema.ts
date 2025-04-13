@@ -28,14 +28,6 @@ export class Report implements IReport {
 
     @Prop({
         required: false,
-        type: [UserSchema],
-        ref: 'User',
-        default: []
-    })
-    players: IUser[] = [];
-
-    @Prop({
-        required: false,
         type: [String],
         ref: 'User',
         default: []

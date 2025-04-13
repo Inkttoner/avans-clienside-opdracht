@@ -75,14 +75,13 @@ export class CreateReportComponent implements OnInit, OnDestroy {
         console.log(this.assists, 'assists');
         console.log(this.manOfTheMatch, 'manOfTheMatch');
         const reportData: ICreateReport = {
-            game: this.game!._id,
             manOfTheMatch: this.manOfTheMatch,
-            players: this.players,
             goals: this.goals.map((goal) => goal.player),
             assists: this.assists.map((assist) => assist.player),
             score: formattedScore,
             rating: this.rating,
             reportText: this.reportText,
+            game: this.game?._id,
         }
         this.reportService.createReport(reportData).subscribe((report) => {
             console.log(report, 'report created');

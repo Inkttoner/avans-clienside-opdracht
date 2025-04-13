@@ -71,7 +71,13 @@ export type GameDocument = Game & Document;
         type: String
     })
     score?: string;
-     
+ 
+    @Prop({
+        required: false,
+        type: MongooseSchema.Types.ObjectId,
+        ref: 'Report' // Reference to the Report model
+    })
+    report?: string;
 }
 
 export const GameSchema = SchemaFactory.createForClass(Game);
