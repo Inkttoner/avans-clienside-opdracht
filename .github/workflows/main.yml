@@ -94,7 +94,8 @@ jobs:
 
       - name: Unzip artifact for deployment
         run: unzip data-api-release.zip
-
+      - name: Debug artifact contents
+        run: ls -R
       - name: Install dependencies
         run: npm install
 
