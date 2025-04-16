@@ -12,10 +12,12 @@ import { UserService } from './user.service';
 import { IPlayer, IUser } from '@avans-nx-workshop/shared/api';
 import { CreateUserDto, UpdateUserDto } from '@avans-nx-workshop/backend/dto';
 import { UserExistGuard } from './user-exists.guard';
+import { UserIsAdminGuard } from './user-isAdmin.guard';
+import { Neo4JUserService } from '@avans-nx-workshop/backend/neo4j';
 
 @Controller('user')
 export class UserController {
-    constructor(private readonly userService: UserService) {}
+    constructor(private readonly userService: UserService, private neo4jUserService: Neo4JUserService) {}
 
     @Get()
     async findAll(): Promise<IPlayer[]> {
@@ -34,8 +36,14 @@ export class UserController {
 
     @Post('')
     @UseGuards(UserExistGuard)
-    create(@Body() user: CreateUserDto): Promise<IUser> {
-        return this.userService.create(user);
+    async create(@Body() user: CreateUserDto): Promise<IUser> {
+        // Create the user in MongoDB
+        const createdUser = await this.userService.create(user);
+        console.log('Created user in MongoDB:', createdUser);
+
+        await this.neo4jUserService.createUser(createdUser._id.toString(), user.name);
+
+        return createdUser;
     }
 
     @Put(':id')
@@ -46,8 +54,4 @@ export class UserController {
         return this.userService.update(id, user);
     }
 
-    @Delete(':id')
-    delete(@Param('id') id: string): Promise<IPlayer | null> {
-        return this.userService.delete(id);
-    }
 }

@@ -35,15 +35,15 @@ export class UserService {
         return item;
     }
 
-    async findOneByEmail(email: string): Promise<IPlayer | null> {
-        this.logger.log(`Finding user by email ${email}`);
-        const item = this.userModel
-            .findOne({ emailAddress: email })
-            .select('-password')
-            .exec();
-        return item;
+    async findById(_id: string): Promise<IPlayer | null> {
+        this.logger.log(`finding user with id ${_id}`);
+        const item = await this.userModel.findById(_id).exec();
+        if (!item) {
+            this.logger.debug('Item not found');
+            return null;
+        }
+        return this.mapToUserInfo(item);
     }
-
     async create(user: CreateUserDto): Promise<IUser> {
         this.logger.log(`Create user ${user.name}`);
         const createdItem = this.userModel.create(user);

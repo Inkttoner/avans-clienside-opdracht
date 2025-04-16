@@ -46,7 +46,8 @@ export class AuthService {
             .then((user) => {
                 if (user && user.password === credentials.password) {
                     const payload = {
-                        user_id: user._id 
+                        _id: user._id,
+                        role: user.role, 
                     };
                     this.logger.log('User found ' + user.name + ' ' + user._id);
                     return {

@@ -13,11 +13,6 @@ export class ReportService {
         @InjectModel(ReportModel.name) private reportModel: Model<ReportDocument> 
     ) {}
 
-    async findAll(): Promise<IReport[]> {
-        this.logger.log(`Finding all items`);
-        const items = await this.reportModel.find();
-        return items.map(item => this.mapToReport(item));
-    }
   
     
     async findForGame(game: IGame): Promise<IReport| null> {

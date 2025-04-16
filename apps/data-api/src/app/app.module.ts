@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { UsersModule } from '@avans-nx-workshop/backend/user';
+import { UserModule } from '@avans-nx-workshop/backend/user';
 import { GamesModule, ReportsModule} from '@avans-nx-workshop/backend/features';
 import { AuthModule } from '@avans-nx-workshop/backend/auth';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -7,6 +7,7 @@ import { environment } from '@avans-nx-workshop/shared/util-env';
 import { Logger } from '@nestjs/common';
 import { AppService } from './app.service';
 import { AppController } from './app.controller';
+import { Neo4jModule } from 'nest-neo4j/dist';
 
 @Module({
     imports: [  
@@ -23,9 +24,17 @@ import { AppController } from './app.controller';
                 return connection;
             }
         }),
-        UsersModule,
+        UserModule,
         GamesModule,
-        ReportsModule
+        ReportsModule,
+        Neo4jModule.forRoot({
+            scheme: 'neo4j+s',
+            host: 'e7140161.databases.neo4j.io',
+            port: 7687,
+            username: 'neo4j',
+            password: 'cicstyamQ6fuqMwIxHKSrZUJWpl1gH-nnknsxib0tBg',
+        }),
+
     ],
     controllers: [AppController],
     providers: [AppService]

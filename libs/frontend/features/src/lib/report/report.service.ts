@@ -20,6 +20,13 @@ export class ReportService {
         console.log('Service constructor aangeroepen');
     }
 
+    getAuthHeaders(): { [key: string]: string } {
+        const currentUser = JSON.parse(localStorage.getItem('currentuser') || '{}');
+        const token = currentUser?.token || '';
+        return {
+            Authorization: `Bearer ${token}`
+        };
+    }
 
     getReportByGameId(gameId: string): Observable<IReport>{
         console.log('getReportById aangeroepen', gameId);
@@ -29,9 +36,11 @@ export class ReportService {
       }
 
     createReport(report: ICreateReport): Observable<ICreateReport> {
+        const headers = this.getAuthHeaders();
+        console.log('headers', headers)
         console.log('createReport aangeroepen', report);
         return this.http
-            .post<ApiResponse<any>>(`${environment.dataApiUrl}/report`, report)
+            .post<ApiResponse<any>>(`${environment.dataApiUrl}/report`, report, {headers})
             .pipe(map((response) => response.results));
     }
 }

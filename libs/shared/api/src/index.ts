@@ -5,6 +5,7 @@ export * from './lib/models/auth.interface';
 export * from './lib/models/entity.interface';
 export * from './lib/models/game.interface';
 export * from './lib/models/report.interface';
+export * from './lib/models/quote.interface';
 
 
 

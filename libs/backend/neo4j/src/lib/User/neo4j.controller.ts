@@ -2,7 +2,7 @@ import { Controller, Get } from '@nestjs/common';
 import { Neo4JUserService } from './neo4j-users.service';
 
 @Controller('users')
-export class Neo4JExampleController {
+export class Neo4JUserController {
     constructor(private readonly neo4jService: Neo4JUserService) {}
 
     @Get('')
@@ -10,4 +10,6 @@ export class Neo4JExampleController {
         const results = await this.neo4jService.findAll();
         return results;
     }
+
+    
 }

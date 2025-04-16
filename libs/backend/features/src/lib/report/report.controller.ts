@@ -12,6 +12,8 @@ import { ReportService } from './report.service';
 import { GameService } from '../game/game.service';
 import { IReport } from '@avans-nx-workshop/shared/api';
 import { CreateReportDto, UpdateGameDto } from '@avans-nx-workshop/backend/dto';
+import{ UserIsAdminGuard } from '../../../../user/src/lib/user/user-isAdmin.guard';
+import { AuthGuard } from '@avans-nx-workshop/backend/auth';
 
 @Controller('report')
 export class ReportController {
@@ -20,10 +22,7 @@ export class ReportController {
         private readonly gameService: GameService
     ) {}
 
-    @Get()
-    async findAll(): Promise<IReport[]> {
-        return this.reportService.findAll();
-    }
+
 
     @Get(':id')
     async findOne(@Param('id') id: string): Promise<IReport | null> {
@@ -35,6 +34,7 @@ export class ReportController {
     }
 
     @Post('')
+    @UseGuards(AuthGuard,UserIsAdminGuard)
     async create(@Body() report: CreateReportDto): Promise<IReport> {
         // Create the report
         const createdReport = await this.reportService.create(report);
@@ -52,6 +52,7 @@ export class ReportController {
     }
 
     @Put(':id')
+    @UseGuards(AuthGuard,UserIsAdminGuard)
     update(
         @Param('id') id: string,
         @Body() game: UpdateGameDto
