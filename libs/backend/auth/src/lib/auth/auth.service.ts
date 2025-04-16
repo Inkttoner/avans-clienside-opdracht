@@ -9,7 +9,7 @@ import {
     UserDocument
 } from '@avans-nx-workshop/backend/user';
 import { JwtService } from '@nestjs/jwt';
-import { IUserCredentials, IUserIdentity } from '@avans-nx-workshop/shared/api';
+import { IUserCredentials, IPlayer } from '@avans-nx-workshop/shared/api';
 import { CreateUserDto } from '@avans-nx-workshop/backend/dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -35,7 +35,7 @@ export class AuthService {
         return null;
     }
 
-    async login(credentials: IUserCredentials): Promise<IUserIdentity> {
+    async login(credentials: IUserCredentials): Promise<IPlayer> {
         this.logger.log('login ' + credentials.emailAddress);
         return await this.userModel
             .findOne({
@@ -46,15 +46,20 @@ export class AuthService {
             .then((user) => {
                 if (user && user.password === credentials.password) {
                     const payload = {
-                        user_id: user._id
+                        _id: user._id,
+                        role: user.role, 
                     };
+                    this.logger.log('User found ' + user.name + ' ' + user._id);
                     return {
                         _id: user._id,
                         name: user.name,
                         emailAddress: user.emailAddress,
-                        profileImgUrl: user.profileImgUrl,
-                        token: this.jwtService.sign(payload)
+                        token: this.jwtService.sign(payload),
+                        position: user.position,
+                        dateOfBirth: user.dateOfBirth,
+                        role: user.role
                     };
+                    
                 } else {
                     const errMsg = 'Email not found or password invalid';
                     this.logger.debug(errMsg);
@@ -66,7 +71,7 @@ export class AuthService {
             });
     }
 
-    async register(user: CreateUserDto): Promise<IUserIdentity> {
+    async register(user: CreateUserDto): Promise<IPlayer> {
         this.logger.log(`Register user ${user.name}`);
         if (await this.userModel.findOne({ emailAddress: user.emailAddress })) {
             this.logger.debug('user exists');

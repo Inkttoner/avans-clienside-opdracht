@@ -2,7 +2,7 @@ import { HttpException, Injectable, Logger } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { User as UserModel, UserDocument } from './user.schema';
-import { IUser, IUserInfo } from '@avans-nx-workshop/shared/api';
+import { IUser, IPlayer } from '@avans-nx-workshop/shared/api';
 // import { Meal, MealDocument } from '@avans-nx-workshop/backend/features';
 import { CreateUserDto, UpdateUserDto } from '@avans-nx-workshop/backend/dto';
 
@@ -14,13 +14,19 @@ export class UserService {
         @InjectModel(UserModel.name) private userModel: Model<UserDocument> // @InjectModel(Meal.name) private meetupModel: Model<MealDocument>
     ) {}
 
-    async findAll(): Promise<IUserInfo[]> {
+    async findAll(): Promise<IPlayer[]> {
         this.logger.log(`Finding all items`);
         const items = await this.userModel.find();
-        return items.map(item => this.mapToUserInfo(item));
+        return items.map((item) => this.mapToUserInfo(item));
     }
 
-    async findOne(_id: string): Promise<IUser | null> {
+    async findAllForGame(gameId: string): Promise<IPlayer[]> {
+        this.logger.log(`Finding all items for game ${gameId}`);
+        const items = await this.userModel.find({ gameId });
+        return items.map((item) => this.mapToUserInfo(item));
+    }
+
+    async findOne(_id: string): Promise<IPlayer | null> {
         this.logger.log(`finding user with id ${_id}`);
         const item = await this.userModel.findOne({ _id }).exec();
         if (!item) {
@@ -29,36 +35,42 @@ export class UserService {
         return item;
     }
 
-    async findOneByEmail(email: string): Promise<IUserInfo | null> {
-        this.logger.log(`Finding user by email ${email}`);
-        const item = this.userModel
-            .findOne({ emailAddress: email })
-            .select('-password')
-            .exec();
-        return item;
+    async findById(_id: string): Promise<IPlayer | null> {
+        this.logger.log(`finding user with id ${_id}`);
+        const item = await this.userModel.findById(_id).exec();
+        if (!item) {
+            this.logger.debug('Item not found');
+            return null;
+        }
+        return this.mapToUserInfo(item);
     }
-
-    async create(user: CreateUserDto): Promise<IUserInfo> {
+    async create(user: CreateUserDto): Promise<IUser> {
         this.logger.log(`Create user ${user.name}`);
         const createdItem = this.userModel.create(user);
         return createdItem;
     }
 
-    async update(_id: string, user: UpdateUserDto): Promise<IUserInfo | null> {
+    async update(_id: string, user: UpdateUserDto): Promise<IPlayer | null> {
         this.logger.log(`Update user ${user.name}`);
         return this.userModel.findByIdAndUpdate({ _id }, user);
     }
-    private mapToUserInfo(item: UserDocument): IUserInfo {
+
+    async delete(_id: string): Promise<IPlayer | null> {
+        this.logger.log(`Delete user ${_id}`);
+        return this.userModel.findByIdAndDelete({ _id });
+    }
+
+    private mapToUserInfo(item: UserDocument): IPlayer {
         return {
             _id: item._id,
             name: item.name,
             password: item.password,
             emailAddress: item.emailAddress,
-            profileImgUrl: item.profileImgUrl,
             role: item.role,
-            gender: item.gender,
-            isActive: item.isActive,
-            position: item.position
+            position: item.position,
+            goals: item.goals,
+            assists: item.assists,
+            dateOfBirth: item.dateOfBirth   
         };
-}
+    }
 }

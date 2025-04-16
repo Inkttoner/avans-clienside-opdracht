@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsBoolean, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsString, IsBoolean, IsOptional, IsDate, IsDateString } from 'class-validator';
 import {
     // ICreateUser,
     IUpdateUser,
@@ -6,9 +6,8 @@ import {
     IUserRegistration,
     Id,
     UserGender,
-    UserRole
+    UserRole,
 } from '@avans-nx-workshop/shared/api';
-import { Meal } from '@avans-nx-workshop/backend/features';
 
 export class CreateUserDto implements IUserRegistration {
     @IsString()
@@ -22,6 +21,11 @@ export class CreateUserDto implements IUserRegistration {
     @IsString()
     @IsNotEmpty()
     emailAddress!: string;
+
+    @IsDateString()
+    @IsNotEmpty()
+    dateOfBirth!: Date;
+
 }
 
 export class UpsertUserDto implements IUpsertUser {
@@ -39,29 +43,20 @@ export class UpsertUserDto implements IUpsertUser {
     @IsNotEmpty()
     emailAddress!: string;
 
-    @IsBoolean()
-    @IsNotEmpty()
-    isActive!: boolean;
-
     @IsString()
     @IsNotEmpty()
-    profileImgUrl = '';
-
-    @IsString()
-    @IsNotEmpty()
-    meals: Meal[] = [];
-
-    @IsString()
-    @IsNotEmpty()
-    role: UserRole = UserRole.Unknown;
-
-    @IsString()
-    @IsNotEmpty()
-    gender: UserGender = UserGender.Unknown;
+    role: UserRole = UserRole.User;
 
     @IsString()
     @IsNotEmpty()
     position = '';
+
+    @IsDate()
+    @IsNotEmpty()
+    dateOfBirth!: Date;
+
+    goals = 0;
+    assists = 0;
 }
 
 export class UpdateUserDto implements IUpdateUser {

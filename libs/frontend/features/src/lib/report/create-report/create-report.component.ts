@@ -1,0 +1,94 @@
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ICreateReport, IGame, IPlayer, IReport } from '@avans-nx-workshop/shared/api';
+import { Subscription } from 'rxjs';
+import { GameService } from '../../games/game.service';
+import { ReportService } from '../report.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from '../../users/user.sevice';
+
+@Component({
+    selector: 'avans-nx-workshop-create-report',
+    templateUrl: './create-report.component.html',
+    styles: ``
+})
+export class CreateReportComponent implements OnInit, OnDestroy {
+    report?: ICreateReport;
+    players: IPlayer[] = [];
+    player?: IPlayer;
+    game?: IGame;
+    subscription?: Subscription;
+    goals: { player: string }[] = [];
+    assists: { player: string }[] = [];
+    homeScore: number = 0;
+    awayScore: number = 0;
+    rating: number = 0;
+    reportText: string = '';
+    manOfTheMatch: string = '';	
+
+    constructor(
+        private reportService: ReportService,
+        private route: ActivatedRoute,
+        private gameService: GameService,
+        private userService: UserService,
+        private router: Router
+    ) {}
+
+    ngOnInit(): void {
+        this.subscription = this.route.params.subscribe((params) => {
+            const gameId = params['gameId'];
+            console.log(gameId, 'gameId in create report component');
+            this.gameService.getGameById(gameId).subscribe((game) => {
+                this.game = game;
+            });
+            this.userService
+                .getPlayersForGameAsync(gameId)
+                .subscribe((players) => {
+                    console.log(players, 'players for game ' + gameId);
+                    this.players = players;
+                });
+        });
+    }
+
+    ngOnDestroy(): void {
+        this.subscription?.unsubscribe();
+    }
+
+    addGoal(): void {
+        this.goals.push({ player: ''});
+    }
+
+    removeGoal(index: number): void {
+        this.goals.splice(index, 1);
+    }
+
+    addAssist(): void {
+        this.assists.push({ player: '' });
+    }
+
+    removeAssist(index: number): void {
+        this.assists.splice(index, 1);
+    }
+
+    submitReport(): void{
+        const formattedScore = `${this.homeScore}-${this.awayScore}`;
+        console.log(this.goals, 'goals');
+        console.log(this.assists, 'assists');
+        console.log(this.manOfTheMatch, 'manOfTheMatch');
+        const reportData: ICreateReport = {
+            manOfTheMatch: this.manOfTheMatch,
+            goals: this.goals.map((goal) => goal.player),
+            assists: this.assists.map((assist) => assist.player),
+            score: formattedScore,
+            rating: this.rating,
+            reportText: this.reportText,
+            game: this.game?._id,
+        }
+        this.reportService.createReport(reportData).subscribe((report) => {
+            console.log(report, 'report created');
+            this.report = report;
+            alert('Verslag is aangemaakt');
+            this.router.navigate(['/playedgames']);	
+        }
+        );
+    }
+}

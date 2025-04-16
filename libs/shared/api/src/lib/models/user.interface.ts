@@ -1,12 +1,11 @@
 // import { IEntity } from 'libs/share-a-meal/common/src/lib/entity/entity.model';
-import { IMeal } from './meal.interface';
 import { IToken, IUserRegistration } from './auth.interface';
 import { Id } from './id.type';
+import { IEntity } from './entity.interface';
 
-export enum UserRole {
-    Guest = 'Guest',
+export enum UserRole{
     Admin = 'Admin',
-    Unknown = 'Unknown'
+    User = 'User',
 }
 
 export enum UserGender {
@@ -16,38 +15,22 @@ export enum UserGender {
     Unknown = 'Unknown'
 }
 
-/**
- * Minimal user information
- */
-
-export interface IUserIdentity{// extends IEntity {
+export interface IUser extends IEntity {
     name: string;
+    password: string;
     emailAddress: string;
-    profileImgUrl: string;
     role: UserRole;
+    dateOfBirth: Date;
     token?: string;
+    position?: string;
+    goals: number;
+    assists: number;
 }
 
-/**
- * All user information, excl. domain entities
- */
-export interface IUserInfo extends IUserRegistration {
-    _id: Id;
-    profileImgUrl: string;
-    role: UserRole;
-    gender: UserGender;
-    isActive: boolean;
-    position: string;
+export interface IPlayer extends IUser {
+    
 }
 
-/**
- * All user information, incl. domain entities
- */
-export interface IUser extends IUserInfo {
-    meals: IMeal[];
-}
-
-
-export type ICreateUser = Pick<IUser, 'name' | 'password' | 'emailAddress'>;
+export type ICreateUser = Pick<IUser, 'name' | 'password' | 'emailAddress' | 'dateOfBirth'>;
 export type IUpdateUser = Partial<Omit<IUser, 'id'>>;
-export type IUpsertUser = IUser;
+export type IUpsertUser = IPlayer;

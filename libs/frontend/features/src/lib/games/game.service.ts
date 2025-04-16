@@ -1,0 +1,52 @@
+import { Injectable } from '@angular/core';
+import { Observable, of, delay, map } from 'rxjs';
+import {
+    IGame,
+    ApiResponse,
+    IPlayer
+} from '@avans-nx-workshop/shared/api';
+import { environment } from '@avans-nx-workshop/shared/util-env';
+import { HttpClient } from '@angular/common/http';
+
+@Injectable({
+    providedIn: 'root'
+})
+export class GameService {
+    constructor(private http: HttpClient) {
+        console.log('Service constructor aangeroepen');
+    }
+
+    createGame(game: IGame): Observable<IGame> {
+        console.log('createGame aangeroepen');
+        return this.http
+            .post<ApiResponse<any>>(`${environment.dataApiUrl}/game`, game)
+            .pipe(map((response) => response.results));
+    }
+
+    getGamesAsync(): Observable<IGame[]> {
+        console.log('getGamesAsync aangeroepen');
+        return this.http
+            .get<ApiResponse<any>>(`${environment.dataApiUrl}/game`)
+            .pipe(map((response) => response.results));
+    }
+    getGameById(_id: string): Observable<IGame>{
+      console.log('getGameById aangeroepen');
+      return this.http
+          .get<ApiResponse<any>>(`${environment.dataApiUrl}/game/${_id}`)
+          .pipe(map((response) => response.results));
+    }
+
+    addPlayerToGame(gameId: string, player: IPlayer): Observable<IGame> {
+        console.log('addPlayerToGame aangeroepen' , player);
+        return this.http
+            .put<ApiResponse<any>>(`${environment.dataApiUrl}/game/addPlayer/${gameId}`, { player })
+            .pipe(map((response) => response.results));
+    }
+
+    updateGame(gameId: string| undefined, game: IGame): Observable<IGame> {
+        console.log('updateGame aangeroepen');
+        return this.http
+            .put<ApiResponse<any>>(`${environment.dataApiUrl}/game/${game._id}`, game)
+            .pipe(map((response) => response.results));
+    }
+}
