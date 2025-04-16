@@ -27,7 +27,7 @@ export class Neo4jQuoteService {
         const result = await this.neo4jService.write(
             `
             MATCH (u:User {userID: $userId})
-            CREATE (q:Quote {text: $quoteText, createdAt: datetime()})
+            CREATE (q:Quote {inhoud: $quoteText, createdAt: datetime()})
             CREATE (u)-[:HEEFT_GEZEGD]->(q)
             RETURN q
             `,

@@ -44,4 +44,11 @@ export class QuoteService {
             .post<ApiResponse<any>>(`${environment.rcmdApiUrl}/quotes/dislike`, {quoteId, userId})
             .pipe(map((response) => response.results));
     }
+
+    createQuote(userId: string, quoteText: string): Observable<IQuote> {
+        console.log('createQuote aangeroepen');
+        return this.http
+            .post<ApiResponse<any>>(`${environment.rcmdApiUrl}/quotes`, {userId, quoteText})
+            .pipe(map((response) => response.results));
+    }
 }

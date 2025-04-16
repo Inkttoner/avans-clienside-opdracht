@@ -1,6 +1,37 @@
 <div class="bg-gray-100 min-h-screen p-6">
     <div class="max-w-4xl mx-auto">
       <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">Quotes</h1>
+        @if (isAdmin && isCreateQuote) {
+            <input
+          type="text"
+          [(ngModel)]="newQuoteText"
+          placeholder="Enter a new quote"
+          class="w-full p-2 border border-gray-300 rounded mb-2"
+        />
+        <select
+          [(ngModel)]="selectedUserId"
+          class="w-full p-2 border border-gray-300 rounded mb-2"
+        >
+          <option *ngFor="let user of users" [value]="user._id">
+            {{ user.name }}
+          </option>
+        </select>
+        <button
+          class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+          (click)="createQuote()"
+        >
+          Create Quote
+        </button>
+        } @else if (isAdmin && !isCreateQuote) {
+            <button
+          class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
+          (click)="toggleCreateQuote()"
+        >
+          Maak een quote
+        </button>
+        }
+
+
       <div class="space-y-6">
         <!-- Loop through quotes -->
         <div

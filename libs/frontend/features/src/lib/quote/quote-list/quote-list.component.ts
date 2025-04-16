@@ -2,8 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { QuoteService } from '../quote.service';
-import { IQuote } from '@avans-nx-workshop/shared/api';
+import { IQuote, IUser, UserRole } from '@avans-nx-workshop/shared/api';
 import { AuthService } from '../../auth/auth.service';
+import { UserService } from '../../users/user.sevice';
 
 @Component({
     selector: 'avans-nx-workshop-quote-list',
@@ -14,9 +15,14 @@ export class QuoteListComponent implements OnInit, OnDestroy {
     sub?: Subscription;
     quotes: IQuote[] = [];
     userID: string = '';
+    isAdmin: boolean = false;
+    isCreateQuote: boolean = false;
+    users?: IUser[] = [];
+    newQuoteText: string = '';
+    selectedUserId: string = '';
     
 
-    constructor(private quoteService: QuoteService, private auth: AuthService) {
+    constructor(private quoteService: QuoteService, private auth: AuthService, private userService: UserService) {
         console.log('QuoteListComponent constructor');
     }
 
@@ -27,7 +33,11 @@ export class QuoteListComponent implements OnInit, OnDestroy {
             this.auth.currentUser$.subscribe((user) => {
                 if (user) {
                     this.userID = user._id;
+                    this.isAdmin = user.role === UserRole.Admin; // Check if the user is an admin
                 }
+            });
+            this.userService.getUsersAsync().subscribe((users) => {
+                this.users = users;
             });
             console.log('User ID:', this.userID);
         });
@@ -53,6 +63,20 @@ export class QuoteListComponent implements OnInit, OnDestroy {
                 this.quotes[index] = quote;
             }
         });
+    }
+    
+    createQuote(): void {
+        if (!this.newQuoteText.trim()) {
+            return; // Prevent creating empty quotes
+        }
+        this.quoteService.createQuote(this.selectedUserId, this.newQuoteText).subscribe((newQuote) => {
+            this.quotes.push(newQuote); // Add the new quote to the list
+            this.newQuoteText = ''; // Clear the input field
+        });
+    }
+
+    toggleCreateQuote(): void {
+        this.isCreateQuote = !this.isCreateQuote;
     }
 
     ngOnDestroy(): void {
