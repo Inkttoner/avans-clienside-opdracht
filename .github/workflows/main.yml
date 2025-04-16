@@ -123,6 +123,9 @@ jobs:
       - name: Unzip artifact for deployment
         run: unzip rcmnd-api-release.zip
 
+      - name: Debug artifact contents
+        run: ls -R
+
       - name: Install dependencies
         run: npm install
 

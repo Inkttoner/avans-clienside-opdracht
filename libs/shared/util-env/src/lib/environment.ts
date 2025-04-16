@@ -7,7 +7,7 @@ export const environment: IEnvironment = {
     dataApiUrl: 'http://localhost:3000/api',
     rcmdApiUrl: 'http://localhost:3100/api',
 
-    MONGO_DB_CONNECTION_STRING: 'dummy',
+    MONGO_DB_CONNECTION_STRING: 'mongodb+srv://kruijfcoen:w0fspGDPMVkb2xWF@trinitas-avans.vnzbm.mongodb.net/?retryWrites=true&w=majority&appName=Trinitas-Avans',
     NEO4J_USER: 'dummy',
     NEO4J_PASSWORD: 'dummy'
 };
