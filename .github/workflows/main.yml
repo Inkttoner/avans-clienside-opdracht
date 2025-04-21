@@ -21,36 +21,33 @@ jobs:
         with:
           node-version: '20.x'
 
-      - name: Install production dependencies for APIs
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build APIs
         run: |
-          cd ${GITHUB_WORKSPACE}/dist/apps/data-api && npm install --production
-          cd ${GITHUB_WORKSPACE}/dist/apps/rcmnd-api && npm install --production
+          npx nx build data-api
+          npx nx build rcmnd-api
+
+      - name: Debug build output
+        run: ls -R ${GITHUB_WORKSPACE}/dist
 
       - name: Zip artifacts for deployment
         run: |
-          echo ${GITHUB_WORKSPACE}
           cd ${GITHUB_WORKSPACE}/dist/apps/data-api/ && zip ${GITHUB_WORKSPACE}/data-api-release.zip ./* -r
-          cd ${GITHUB_WORKSPACE}/dist/apps/my-app/ && zip ${GITHUB_WORKSPACE}/my-app-release.zip ./* -r
           cd ${GITHUB_WORKSPACE}/dist/apps/rcmnd-api/ && zip ${GITHUB_WORKSPACE}/rcmnd-api-release.zip ./* -r
 
-      - name: Upload my-app artifact for deployment job
-        uses: actions/upload-artifact@v4
-        with:
-          name: my-app
-          path: my-app-release.zip
-          
       - name: Upload data-api artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: data-api
           path: data-api-release.zip
-          
+
       - name: Upload rcmnd-api artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: rcmnd-api
           path: rcmnd-api-release.zip
-          
           
   deploy-my-app:
     runs-on: ubuntu-latest
