@@ -7,7 +7,7 @@ export const environment: IEnvironment = {
     dataApiUrl: 'https://data-api-clientside-chg6gdgqetf6cffk.canadacentral-01.azurewebsites.net/api',
     rcmdApiUrl: 'https://trinitas-rcmnd-api.azurewebsites.net/api',
 
-    MONGO_DB_CONNECTION_STRING: 'mongodb+srv://kruijfcoen:w0fspGDPMVkb2xWF@trinitas-avans.vnzbm.mongodb.net/?retryWrites=true&w=majority&appName=Trinitas-Avans',
+    MONGO_DB_CONNECTION_STRING: 'mongodb://localhost:27017/trinitas',
     NEO4J_USER: 'neo4j',
     NEO4J_PASSWORD: 'cicstyamQ6fuqMwIxHKSrZUJWpl1gH-nnknsxib0tBg',
      
