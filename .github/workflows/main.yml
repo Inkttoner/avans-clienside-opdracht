@@ -36,7 +36,9 @@ jobs:
       - name: Zip artifacts for deployment
         run: |
           echo ${GITHUB_WORKSPACE}
-          cd ${GITHUB_WORKSPACE}/dist/apps/data-api/ && zip ${GITHUB_WORKSPACE}/data-api-release.zip ./* -r
+          cd ${GITHUB_WORKSPACE}/dist/apps/data-api/ 
+          npm install --production
+          zip ${GITHUB_WORKSPACE}/data-api-release.zip ./* -r
           cd ${GITHUB_WORKSPACE}/dist/apps/my-app/ && zip ${GITHUB_WORKSPACE}/my-app-release.zip ./* -r
           cd ${GITHUB_WORKSPACE}/dist/apps/rcmnd-api/ && zip ${GITHUB_WORKSPACE}/rcmnd-api-release.zip ./* -r
 
@@ -105,6 +107,7 @@ jobs:
           unzip data-api-release.zip
       - name: Debug artifact contents
         run: ls -R
+
       - name: Install dependencies
         run: npm install
         
