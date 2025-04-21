@@ -28,6 +28,7 @@ jobs:
         run: |
           npx nx build data-api
           npx nx build rcmnd-api
+          npx nx build my-app
 
       - name: Debug build output
         run: ls -R ${GITHUB_WORKSPACE}/dist
