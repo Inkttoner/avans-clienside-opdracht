@@ -13,7 +13,10 @@ async function bootstrap() {
     const globalPrefix = 'api';
     app.setGlobalPrefix(globalPrefix);
 
-    const corsOptions: CorsOptions = {};
+    const corsOptions: CorsOptions = {
+        origin: ['https://mango-meadow-014b9b503.5.azurestaticapps.net'],
+        credentials: true,
+    };
     app.enableCors(corsOptions);
 
     app.useGlobalInterceptors(new ApiResponseInterceptor());
