@@ -8,6 +8,7 @@ import { Logger } from '@nestjs/common';
 import { AppService } from './app.service';
 import { AppController } from './app.controller';
 import { Neo4jModule } from 'nest-neo4j/dist';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
     imports: [  
@@ -24,6 +25,7 @@ import { Neo4jModule } from 'nest-neo4j/dist';
                 return connection;
             }
         }),
+        ConfigModule.forRoot(),
         UserModule,
         GamesModule,
         ReportsModule,
