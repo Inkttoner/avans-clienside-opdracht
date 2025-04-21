@@ -18,11 +18,12 @@ async function bootstrap() {
     const globalPrefix = 'api';
     app.setGlobalPrefix(globalPrefix);
 
-    const corsOptions: CorsOptions = {
-        origin: ['https://mango-meadow-014b9b503.5.azurestaticapps.net'],
-        credentials: true,
-    };
-    app.enableCors(corsOptions);
+    app.enableCors({
+        origin: '*', // Your Angular app's URL
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+        allowedHeaders: 'Content-Type, Accept, Authorization',
+      });
+   
 
     app.useGlobalInterceptors(new ApiResponseInterceptor());
     app.useGlobalPipes(new ValidationPipe());
