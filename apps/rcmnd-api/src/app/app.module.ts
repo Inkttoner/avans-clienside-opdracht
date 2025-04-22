@@ -1,6 +1,7 @@
 import { Neo4jBackendModule, Neo4jQuoteModule } from '@avans-nx-workshop/backend/neo4j';
 import { Module } from '@nestjs/common';
 import { Neo4jModule } from 'nest-neo4j/dist';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
     imports: [
@@ -12,7 +13,8 @@ import { Neo4jModule } from 'nest-neo4j/dist';
             password: 'cicstyamQ6fuqMwIxHKSrZUJWpl1gH-nnknsxib0tBg',
         }),
         Neo4jBackendModule,
-        Neo4jQuoteModule
+        Neo4jQuoteModule,
+        ConfigModule.forRoot(),
     ],
     controllers: [],
     providers: []
